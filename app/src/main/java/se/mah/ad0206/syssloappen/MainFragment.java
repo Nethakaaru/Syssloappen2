@@ -19,11 +19,8 @@ public class MainFragment extends Fragment {
 
     private Controller controller;
 
-
-
     private TextView TVPoints;
     private ListView LVChores;
-    private Button btnEditChore, btnEditRewards;
     private ChoreListAdapter adapter;
 
     public MainFragment() {
@@ -43,18 +40,6 @@ public class MainFragment extends Fragment {
     }
 
     private void initComponents() {
-        btnEditChore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                controller.btnEditChoreClicked();
-            }
-        });
-        btnEditRewards.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                controller.btnEditRewardsClicked();
-            }
-        });
         LVChores.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -66,8 +51,6 @@ public class MainFragment extends Fragment {
     private void findComponents(View view) {
         TVPoints = (TextView)view.findViewById(R.id.TVPoints);
         LVChores=(ListView)view.findViewById(R.id.LVChores);
-        btnEditChore=(Button)view.findViewById(R.id.btnEditChoires);
-        btnEditRewards=(Button)view.findViewById(R.id.btnEditRewards);
     }
 
     /**

@@ -7,6 +7,8 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Created by Sebastian Aspegren on 2015-03-04.
@@ -108,12 +110,10 @@ public class Controller {
         dbController.close();
     }
 
-    public void btnEditChoreClicked() {
-        //TODO
-    }
+    public void btnAddChoreClicked(String chore, String points) {
+        insertIntoDB(chore, points);
+        Toast.makeText(mainActivity, "Syssla tillagd", Toast.LENGTH_SHORT).show();
 
-    public void btnEditRewardsClicked() {
-        //TODO
     }
 
     public void LVChoresClicked(int position) {

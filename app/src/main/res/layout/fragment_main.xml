@@ -17,29 +17,4 @@
         android:layout_below="@+id/TVPoints"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/btnEditChores"
-        android:id="@+id/btnEditChoires"
-        android:layout_below="@+id/LVChores"
-        android:layout_marginTop="48dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/btnEditRewards"
-        android:id="@+id/btnEditRewards"
-        android:layout_below="@+id/btnEditChoires"
-        android:layout_marginTop="50dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-
 </RelativeLayout>
