@@ -1,0 +1,23 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="se.mah.ad0206.syssloappen.WelcomeFragment"
+    android:orientation="horizontal">
+
+
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:id="@+id/TVWelcome"
+        android:text="@string/welcome"
+        android:textSize="26sp"
+        android:paddingBottom="80sp"
+        android:layout_gravity="top"
+        />
+
+    <Button android:layout_height="wrap_content" android:layout_width="wrap_content"
+        android:layout_below="@+id/TVWelcome"
+        android:layout_centerHorizontal="true"
+        android:text="@string/btnWelcome"
+        android:textSize="26sp"
+        android:id="@+id/btnWelcome"
+        />
+
+</RelativeLayout>

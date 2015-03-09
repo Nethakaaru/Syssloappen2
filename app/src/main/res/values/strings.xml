@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Syssloappen</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome">Hej och välkommen till syssloappen!
+        I den här appen kan du skriva in saker som du vill att någon ska göra och hur mycket poäng de ska få för detta.
+        Du kan också skriva in belöningar de ska få när de uppnått en viss mängd poäng, till exempel godis. </string>
+    <string name="btnWelcome">Jag förstår</string>
+    <string name="pointsError">Vi kan tyvärr inte visa dina poäng just nu.</string>
+    <string name="btnEditChores">Redigera sysslor</string>
+    <string name="btnEditRewards">Redigera belöningar</string>
+
+</resources>
