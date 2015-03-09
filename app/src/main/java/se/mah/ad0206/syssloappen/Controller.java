@@ -119,4 +119,34 @@ public class Controller {
     public void LVChoresClicked(int position) {
         //TODO
     }
+
+    public void drawerItemClicked(int position) {
+        Fragment fragment = null;
+        switch (position) {
+            case 0:
+                fragment = new WelcomeFragment();
+                break;
+            case 1:
+                fragment = new AddChoresFragment();
+                break;
+            case 2:
+                fragment = new DeleteChoreFragment();
+                break;
+            case 3:
+                fragment = new MainFragment();
+                break;
+            case 4:
+                fragment = new HistoryFragment();
+                break;
+
+
+            default:
+                break;
+        }
+
+        if (fragment != null) {
+           swapFragment(fragment,false);
+    }
+}
+
 }
