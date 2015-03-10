@@ -60,7 +60,7 @@ public class MainFragment extends Fragment {
      *                   A normal controller reference.
      */
     public void setController(Controller controller){
-        this.controller=controller;
+        this.controller = controller;
     }
 
     public void setAdapter(ChoreListAdapter adapter) {
