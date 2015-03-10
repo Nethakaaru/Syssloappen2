@@ -14,5 +14,6 @@
     <string name="btnDeleteChore">Remove chore</string>
     <string name="btnSeeHistory">View history</string>
     <string name="addChoreHint">Name on chore…</string>
+    <string name="nameInput">Write a name</string>
 
 </resources>
