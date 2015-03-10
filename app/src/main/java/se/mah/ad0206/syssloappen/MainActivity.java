@@ -34,7 +34,6 @@ public class MainActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-
         String[] pages = new String[]{"Huvudsidan", "Lägg till syssla", "Ta bort syssla", "Historik"};
         DrawerAdapter drawerAdapter = new DrawerAdapter(this, pages);
         mDrawerList.setAdapter(drawerAdapter);
