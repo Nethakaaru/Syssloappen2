@@ -24,7 +24,7 @@ public class MainActivity extends ActionBarActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         ListView mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
 
-
+        getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_drawer);
 
         mDrawerToggle = new android.support.v7.app.ActionBarDrawerToggle(this, mDrawerLayout, R.string.app_name,R.string.app_name);
 
@@ -42,7 +42,7 @@ public class MainActivity extends ActionBarActivity {
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                controller.drawerItemClicked(position);
+                controller.drawerItemClicked(position, view);
                 mDrawerLayout.closeDrawers();
             }
         });

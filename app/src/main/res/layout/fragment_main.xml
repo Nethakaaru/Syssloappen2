@@ -6,7 +6,6 @@
     <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
         android:text="@string/pointsError"
         android:textSize="20sp"
-        android:paddingTop="10sp"
         android:id="@+id/TVPoints"
         android:paddingBottom="10sp" />
 
