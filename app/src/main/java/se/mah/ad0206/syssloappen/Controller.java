@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 /**
  * Created by Sebastian Aspegren on 2015-03-04.
  *
@@ -20,8 +22,10 @@ public class Controller {
     private MainFragment mainFragment;
     private AddChoresFragment addChoresFragment;
     private DBController dbController;
-    private String[] chores;
-    private String[] points;
+ //   private String[] chores;
+   // private String[] points;
+    private ArrayList<String> chores = new ArrayList<>();
+    private ArrayList<String> points = new ArrayList<>();
     private View lastView = null;
 
     /**
@@ -45,6 +49,11 @@ public class Controller {
            swapFragment(mainFragment, false);
            mainFragment.setController(this);
        }
+        getChoresAndPoints();
+       // Toast.makeText(mainActivity,points.get(0),Toast.LENGTH_SHORT).show();
+       mainFragment.setAdapter(new ChoreListAdapter(mainActivity,chores,points));
+
+
     }
 
     /**
@@ -96,12 +105,12 @@ public class Controller {
         dbController.open();
         Cursor c = dbController.getChores();
         if( c.moveToFirst() ){
-            int i=0;
+
 
             do{
-                chores[i]=c.getString(0);
-                points[i]=c.getString(1);
-                i++;
+                chores.add(c.getString(0));
+                points.add(c.getString(1));
+
 
             }while(c.moveToNext());
         }
