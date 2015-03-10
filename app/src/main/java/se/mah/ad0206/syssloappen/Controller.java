@@ -31,19 +31,20 @@ public class Controller {
      *                      A normal reference to the mainActivity.
      */
     public Controller(MainActivity mainActivity){
-        this.mainActivity=mainActivity;
-        mainFragment=new MainFragment();
+        this.mainActivity = mainActivity;
+        mainFragment = new MainFragment();
         addChoresFragment = new AddChoresFragment();
         addChoresFragment.setController(this);
-        dbController= new DBController(mainActivity);
+        dbController = new DBController(mainActivity);
         //If it is the users first time we show them the instructions.
        if(isFirstTime()){
            WelcomeFragment welcomeFragment = new WelcomeFragment();
            welcomeFragment.setController(this);
            swapFragment(welcomeFragment, false);
-       }else
-           swapFragment(mainFragment,false);
-            mainFragment.setController(this);
+       }else {
+           swapFragment(mainFragment, false);
+           mainFragment.setController(this);
+       }
     }
 
     /**
@@ -86,8 +87,6 @@ public class Controller {
         swapFragment(mainFragment, false);
         mainFragment.setController(this);
         editor.apply();
-
-
     }
 
     /**
@@ -109,6 +108,7 @@ public class Controller {
         c.close();
         dbController.close();
     }
+
     public void insertIntoDB(String chore, String points){
         dbController.open();
         dbController.save(chore, points);
@@ -130,9 +130,10 @@ public class Controller {
         if(lastView != null) {
             lastView.setBackgroundColor(mainActivity.getResources().getColor(R.color.list_background));
         }
+
         switch (position) {
             case 0:
-                fragment = new WelcomeFragment();
+                fragment = mainFragment;
                 break;
             case 1:
                 fragment = addChoresFragment;
@@ -141,12 +142,8 @@ public class Controller {
                 fragment = new DeleteChoreFragment();
                 break;
             case 3:
-                fragment = new MainFragment();
-                break;
-            case 4:
                 fragment = new HistoryFragment();
                 break;
-
 
             default:
                 break;
@@ -156,8 +153,8 @@ public class Controller {
         lastView = view;
 
         if (fragment != null) {
-           swapFragment(fragment,false);
+            swapFragment(fragment,false);
+        }
     }
-}
 
 }

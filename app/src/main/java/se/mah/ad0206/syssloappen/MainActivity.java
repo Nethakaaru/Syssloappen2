@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -34,10 +35,9 @@ public class MainActivity extends ActionBarActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
 
-
-
-        String[] pages = new String[]{"Se startsidan", "Lägg till syssla", "Ta bort syssla", "Huvudsidan", "Historik"};
-        mDrawerList.setAdapter(new DrawerAdapter(this, pages));
+        String[] pages = new String[]{"Huvudsidan", "Lägg till syssla", "Ta bort syssla", "Historik"};
+        DrawerAdapter drawerAdapter = new DrawerAdapter(this, pages);
+        mDrawerList.setAdapter(drawerAdapter);
 
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -46,9 +46,6 @@ public class MainActivity extends ActionBarActivity {
                 mDrawerLayout.closeDrawers();
             }
         });
-
-
-
     }
 
     @Override
