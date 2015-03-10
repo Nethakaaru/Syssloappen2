@@ -27,6 +27,7 @@ public class Controller {
     private ArrayList<String> chores = new ArrayList<>();
     private ArrayList<String> points = new ArrayList<>();
     private View lastView = null;
+    private SharedPreferences preferences;
 
     /**
      * This is the constructor.
@@ -36,6 +37,7 @@ public class Controller {
      */
     public Controller(MainActivity mainActivity){
         this.mainActivity = mainActivity;
+        preferences = mainActivity.getSharedPreferences("myCache", Context.MODE_PRIVATE);
         mainFragment = new MainFragment();
         addChoresFragment = new AddChoresFragment();
         addChoresFragment.setController(this);
@@ -80,7 +82,6 @@ public class Controller {
      *          true if it is their first time, else false.
      */
     private boolean isFirstTime(){
-        SharedPreferences preferences = mainActivity.getSharedPreferences("isFirstTime", Context.MODE_PRIVATE);
         //Note the exclamation mark.
         return !preferences.contains("firstTime");
     }
@@ -90,7 +91,6 @@ public class Controller {
      * We also swap to the main screen.
      */
     public void btnWelcomeClicked() {
-        SharedPreferences preferences = mainActivity.getSharedPreferences("isFirstTime", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("firstTime", "firstTime");
         swapFragment(mainFragment, false);
@@ -102,20 +102,23 @@ public class Controller {
      *
      */
     public void getChoresAndPoints(){
+        chores.clear();
+        points.clear();
         dbController.open();
         Cursor c = dbController.getChores();
         if( c.moveToFirst() ){
-
-
             do{
                 chores.add(c.getString(0));
                 points.add(c.getString(1));
-
 
             }while(c.moveToNext());
         }
         c.close();
         dbController.close();
+    }
+
+    public void getPointsAndLevel() {
+        //TODO
     }
 
     public void insertIntoDB(String chore, String points){
@@ -131,7 +134,19 @@ public class Controller {
     }
 
     public void LVChoresClicked(int position) {
-        //TODO
+        String points = preferences.getString("points", "0");
+        String lvl = preferences.getString("level", "1");
+        String chorePoints = this.points.get(position);
+        int newPoints = (Integer.parseInt(points) + Integer.parseInt(chorePoints));
+        if(newPoints >= 500) {
+            //ToDo
+        }
+        mainFragment.setTVPoints("Poäng: " + newPoints + " / 500");
+        mainFragment.setTVLevel("Nivå: " + lvl);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("points", String.valueOf(newPoints));
+        editor.putString("level", lvl);
+        editor.apply();
     }
 
     public void drawerItemClicked(int position, View view) {

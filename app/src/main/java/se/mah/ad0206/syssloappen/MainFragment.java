@@ -19,7 +19,7 @@ public class MainFragment extends Fragment {
 
     private Controller controller;
 
-    private TextView TVPoints;
+    private TextView TVPoints, TVLevel;
     private ListView LVChores;
     private ChoreListAdapter adapter;
 
@@ -50,7 +50,14 @@ public class MainFragment extends Fragment {
 
     private void findComponents(View view) {
         TVPoints = (TextView)view.findViewById(R.id.TVPoints);
-        LVChores=(ListView)view.findViewById(R.id.LVChores);
+        TVLevel = (TextView)view.findViewById(R.id.TVLevel);
+        LVChores = (ListView)view.findViewById(R.id.LVChores);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        controller.getChoresAndPoints();
     }
 
     /**
@@ -69,5 +76,9 @@ public class MainFragment extends Fragment {
 
     public void setTVPoints(String text) {
        TVPoints.setText(text);
+    }
+
+    public void setTVLevel(String text) {
+        TVLevel.setText(text);
     }
 }

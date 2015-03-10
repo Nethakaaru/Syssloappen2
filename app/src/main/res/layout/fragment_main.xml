@@ -1,19 +1,35 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="se.mah.ad0206.syssloappen.MainFragment">
+    android:layout_height="match_parent"
+    android:orientation="vertical" tools:context="se.mah.ad0206.syssloappen.MainFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:text="@string/pointsError"
-        android:textSize="20sp"
-        android:id="@+id/TVPoints"
-        android:paddingBottom="10sp" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:paddingBottom="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="TEST"
+            android:layout_weight="0.5"
+            android:gravity="start"
+            android:id="@+id/TVPoints" />
+
+        <TextView android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="TEST"
+            android:layout_weight="0.5"
+            android:gravity="end"
+            android:id="@+id/TVLevel" />
+
+    </LinearLayout>
 
     <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="200sp"
-        android:id="@+id/LVChores"
-        android:layout_below="@+id/TVPoints"
-        android:layout_centerHorizontal="true" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/LVChores" />
 
-</RelativeLayout>
+</LinearLayout>
