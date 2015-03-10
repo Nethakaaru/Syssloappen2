@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 /**
@@ -17,9 +18,11 @@ import android.widget.Toast;
 public class Controller {
     private MainActivity mainActivity;
     private MainFragment mainFragment;
+    private AddChoresFragment addChoresFragment;
     private DBController dbController;
     private String[] chores;
     private String[] points;
+    private View lastView = null;
 
     /**
      * This is the constructor.
@@ -30,6 +33,8 @@ public class Controller {
     public Controller(MainActivity mainActivity){
         this.mainActivity=mainActivity;
         mainFragment=new MainFragment();
+        addChoresFragment = new AddChoresFragment();
+        addChoresFragment.setController(this);
         dbController= new DBController(mainActivity);
         //If it is the users first time we show them the instructions.
        if(isFirstTime()){
@@ -120,14 +125,17 @@ public class Controller {
         //TODO
     }
 
-    public void drawerItemClicked(int position) {
+    public void drawerItemClicked(int position, View view) {
         Fragment fragment = null;
+        if(lastView != null) {
+            lastView.setBackgroundColor(mainActivity.getResources().getColor(R.color.list_background));
+        }
         switch (position) {
             case 0:
                 fragment = new WelcomeFragment();
                 break;
             case 1:
-                fragment = new AddChoresFragment();
+                fragment = addChoresFragment;
                 break;
             case 2:
                 fragment = new DeleteChoreFragment();
@@ -143,6 +151,9 @@ public class Controller {
             default:
                 break;
         }
+
+        view.setBackgroundColor(mainActivity.getResources().getColor(R.color.list_background_pressed));
+        lastView = view;
 
         if (fragment != null) {
            swapFragment(fragment,false);

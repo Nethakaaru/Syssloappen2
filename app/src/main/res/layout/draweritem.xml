@@ -11,6 +11,7 @@
         android:layout_weight=".5"
         android:textSize="30sp"
         android:gravity="start"
+        android:paddingLeft="5sp"
         android:paddingBottom="5sp"
         />
 

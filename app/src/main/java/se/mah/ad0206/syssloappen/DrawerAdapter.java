@@ -24,7 +24,7 @@ public class DrawerAdapter extends ArrayAdapter<String> {
 
         LayoutInflater inflater = LayoutInflater.from(getContext());
         convertView = inflater.inflate(R.layout.draweritem, parent, false);
-       TextView item  = (TextView) convertView.findViewById(R.id.DrawerItem);
+        TextView item  = (TextView) convertView.findViewById(R.id.DrawerItem);
         item.setText(pages[position]);
 
         return convertView;
