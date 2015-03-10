@@ -58,7 +58,7 @@ public class AddChoresFragment extends Fragment {
         etChoreName = (EditText)view.findViewById(R.id.etChoreName);
         Button btnAddChore = (Button) view.findViewById(R.id.btnAddChore);
 
-        //clicklistener. If the text isn't empty save it to the database else message the user its empty.
+        //clickListener. If the text isn't empty save it to the database else message the user its empty.
         btnAddChore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
