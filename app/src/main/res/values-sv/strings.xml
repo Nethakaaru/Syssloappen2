@@ -14,5 +14,6 @@
     <string name="btnSeeHistory">Se historik</string>
     <string name="addChoreHint">Namn på syssla…</string>
     <string name="nameInput">Skriv in ett namn</string>
+    <string name="points">Poäng: </string>
 
 </resources>

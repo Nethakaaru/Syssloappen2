@@ -15,5 +15,6 @@
     <string name="btnSeeHistory">View history</string>
     <string name="addChoreHint">Name on chore…</string>
     <string name="nameInput">Write a name</string>
+    <string name="points">"Points: </string>
 
 </resources>

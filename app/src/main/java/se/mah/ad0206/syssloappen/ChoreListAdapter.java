@@ -34,20 +34,32 @@ public class ChoreListAdapter extends ArrayAdapter<String>{
     /**
      * A method that puts views into the list with the proper information.
      * @param position
+     *               position the view has in the list.
      * @param view
+     *              the view.
      * @param parent
+     *              ViewGroup for inflating.
      * @return
+     *          the view.
      */
     @Override
     public View getView(int position, View view, ViewGroup parent) {
+
         ViewHolder holder = new ViewHolder();
-        LayoutInflater inflater = LayoutInflater.from(getContext());
-        view = inflater.inflate(R.layout.row, parent, false);
-       holder.choreName = (TextView) view.findViewById(R.id.LVTextViewChore);
-        holder.chorePoints = (TextView) view.findViewById(R.id.LVTextViewPoints);
-        view.setTag(holder);
+        if(view==null){
+
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            view = inflater.inflate(R.layout.row, parent, false);
+            holder.choreName = (TextView) view.findViewById(R.id.LVTextViewChore);
+            holder.chorePoints = (TextView) view.findViewById(R.id.LVTextViewPoints);
+            view.setTag(holder);
+
+        }else{
+            holder=(ViewHolder) view.getTag();
+        }
+
         holder.choreName.setText(chores[position]);
-        holder.chorePoints.setText("Poäng: " + points[position]);
+        holder.chorePoints.setText(R.string.points + points[position]);
 
         return view;
     }
