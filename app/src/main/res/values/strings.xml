@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Syssloappen</string>
+    <string name="app_name">The Chore App</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="welcome">Hej och välkommen till syssloappen!
-        I den här appen kan du skriva in saker som du vill att någon ska göra och hur mycket poäng de ska få för detta.
-        När de uppnått en viss mängd poäng så belönas de med godis. </string>
-    <string name="btnWelcome">Jag förstår</string>
-    <string name="pointsError">Vi kan tyvärr inte visa dina poäng just nu.</string>
-    <string name="btnAddChore">Lägg till ny syssla</string>
-    <string name="btnDeleteChore">Ta bort syssla</string>
-    <string name="btnSeeHistory">Se historik</string>
-    <string name="addChoreHint">Namn på syssla...</string>
+    <string name="welcome"> Hello and welcome to the chore app!
+    In this app you can write chore that you want someone to do and how much points they will receive for it.
+    When they have accumulated a certain amount they will be rewarded by candy.</string>
+    <string name="btnWelcome">I understand</string>
+    <string name="pointsError">We are unable to show your points at the moment.</string>
+    <string name="btnAddChore">Add a chore</string>
+    <string name="btnDeleteChore">Remove chore</string>
+    <string name="btnSeeHistory">View history</string>
+    <string name="addChoreHint">Name on chore…</string>
 
 </resources>
