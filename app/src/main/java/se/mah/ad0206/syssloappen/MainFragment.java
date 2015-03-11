@@ -33,7 +33,7 @@ public class MainFragment extends Fragment {
      * @param inflater
      *                  the inflater.
      * @param container
-     *                  the viewgroup.
+     *                  the ViewGroup.
      * @param savedInstanceState
      *                  the bundle.
      * @return
