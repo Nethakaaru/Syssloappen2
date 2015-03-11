@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
-    android:paddingLeft="10sp"
-    android:paddingRight="10sp">
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
 
     <TextView
         android:id="@+id/LVTextViewChore"

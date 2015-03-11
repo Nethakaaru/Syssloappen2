@@ -33,10 +33,10 @@ public class DBController extends SQLiteOpenHelper {
     public Cursor getChores(){
         return database.rawQuery("SELECT chore, points from chores", new String[]{});
     }
-    public void save(String chore,String points){
+    public void save(String chore, String points){
         ContentValues values = new ContentValues();
         values.put("chore", chore);
-        values.put("points",points);
+        values.put("points", points);
 
         database.insert("chores", null, values);
     }
@@ -47,11 +47,17 @@ public class DBController extends SQLiteOpenHelper {
         values.put("points",points);
         values.put("date",date);
 
-        database.insert("history",null,values);
+        database.insert("history", null, values);
     }
+
     public Cursor getHistory(){
         return database.rawQuery("SELECT chore, points, date from history", new String[]{});
     }
+
+    public void deleteChore(String chore, String points) {
+        database.delete("chores", "chore='"+chore+"' and points='"+points+"'", null);
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
 

@@ -2,15 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="se.mah.ad0206.syssloappen.WelcomeFragment"
     android:orientation="horizontal"
-    android:paddingLeft="10sp"
-    android:paddingRight="10sp">
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
 
 
     <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
         android:id="@+id/TVWelcome"
         android:text="@string/welcome"
         android:textSize="26sp"
-        android:paddingBottom="80sp"
+        android:paddingBottom="80dp"
         android:layout_gravity="top"
         />
 

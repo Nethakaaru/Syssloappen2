@@ -25,6 +25,7 @@ public class Controller {
     private MainFragment mainFragment;
     private AddChoresFragment addChoresFragment;
     private HistoryFragment historyFragment;
+    private DeleteChoreFragment deleteChoreFragment;
     private DBController dbController;
  //   private String[] chores;
    // private String[] points;
@@ -46,6 +47,8 @@ public class Controller {
         addChoresFragment = new AddChoresFragment();
         addChoresFragment.setController(this);
         historyFragment= new HistoryFragment();
+        deleteChoreFragment = new DeleteChoreFragment();
+        deleteChoreFragment.setController(this);
         dbController = new DBController(mainActivity);
 
         //If it is the users first time we show them the instructions.
@@ -59,8 +62,9 @@ public class Controller {
        }
         getChoresAndPoints();
        // Toast.makeText(mainActivity,points.get(0),Toast.LENGTH_SHORT).show();
-       mainFragment.setAdapter(new ChoreListAdapter(mainActivity,chores,points));
-        prepHistoryFragment();
+       mainFragment.setAdapter(new ChoreListAdapter(mainActivity, chores, points));
+        deleteChoreFragment.setAdapter(new ChoreListAdapter(mainActivity, chores, points));
+
     }
 
     /**
@@ -100,7 +104,7 @@ public class Controller {
         ArrayList<String> history = new ArrayList<>();
         if( c.moveToFirst() ) {
             do {
-                history.add(c.getString(0) + " " + c.getString(1) + " " + c.getString(2));
+                history.add(c.getString(0) + "\nPoäng: " + c.getString(1) + "\nDatum: " + c.getString(2));
             }while(c.moveToNext());
         }
         c.close();
@@ -166,7 +170,7 @@ public class Controller {
         editor.putString("level", lvl);
         editor.apply();
         dbController.open();
-        dbController.saveHistory(this.chores.get(position),this.points.get(position),getDate());
+        dbController.saveHistory(this.chores.get(position), this.points.get(position), getDate());
         dbController.close();
     }
 
@@ -175,6 +179,14 @@ public class Controller {
         String lvl = preferences.getString("level", "1");
         mainFragment.setTVPoints("Poäng: " + points + "/500");
         mainFragment.setTVLevel("Nivå: " + lvl);
+    }
+
+    public void LVDeleteChoresClicked(int position) {
+        dbController.open();
+        dbController.deleteChore(this.chores.get(position), this.points.get(position));
+        dbController.close();
+        this.chores.remove(position);
+        this.points.remove(position);
     }
 
     public void drawerItemClicked(int position, View view) {
@@ -191,10 +203,11 @@ public class Controller {
                 fragment = addChoresFragment;
                 break;
             case 2:
-                fragment = new DeleteChoreFragment();
+                fragment = deleteChoreFragment;
                 break;
             case 3:
                 fragment = historyFragment;
+                prepHistoryFragment();
                 break;
 
             default:

@@ -18,6 +18,7 @@ public class HistoryFragment extends Fragment {
 
     private ListView lvHistory;
     private TextView tvHistory;
+    private ArrayAdapter<String> adapter;
 
     public HistoryFragment() {
         // Required empty public constructor
@@ -31,11 +32,13 @@ public class HistoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_history, container, false);
          lvHistory = (ListView)view.findViewById(R.id.lvHistory);
         tvHistory = (TextView)view.findViewById(R.id.tvHistory);
+        lvHistory.setAdapter(adapter);
+        settvHistory();
         return view;
     }
 
-    public void setAdapter(ArrayAdapter adapter){
-        lvHistory.setAdapter(adapter);
+    public void setAdapter(ArrayAdapter<String> adapter){
+        this.adapter = adapter;
     }
     public void settvHistory(){
         tvHistory.setText(getResources().getString(R.string.tvHistory) + " " + lvHistory.getCount());
