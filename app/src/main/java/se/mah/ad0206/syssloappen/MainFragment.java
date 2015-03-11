@@ -58,6 +58,7 @@ public class MainFragment extends Fragment {
     public void onResume() {
         super.onResume();
         controller.getChoresAndPoints();
+        controller.setPointsAndLevel();
     }
 
     /**

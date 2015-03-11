@@ -117,10 +117,6 @@ public class Controller {
         dbController.close();
     }
 
-    public void getPointsAndLevel() {
-        //TODO
-    }
-
     public void insertIntoDB(String chore, String points){
         dbController.open();
         dbController.save(chore, points);
@@ -139,14 +135,22 @@ public class Controller {
         String chorePoints = this.points.get(position);
         int newPoints = (Integer.parseInt(points) + Integer.parseInt(chorePoints));
         if(newPoints >= 500) {
-            //ToDo
+            newPoints = newPoints - 500;
+            lvl = String.valueOf(Integer.parseInt(lvl) + 1);
         }
-        mainFragment.setTVPoints("Poäng: " + newPoints + " / 500");
+        mainFragment.setTVPoints("Poäng: " + newPoints + "/500");
         mainFragment.setTVLevel("Nivå: " + lvl);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("points", String.valueOf(newPoints));
         editor.putString("level", lvl);
         editor.apply();
+    }
+
+    public void setPointsAndLevel() {
+        String points = preferences.getString("points", "0");
+        String lvl = preferences.getString("level", "1");
+        mainFragment.setTVPoints("Poäng: " + points + "/500");
+        mainFragment.setTVLevel("Nivå: " + lvl);
     }
 
     public void drawerItemClicked(int position, View view) {
