@@ -119,6 +119,6 @@ public class MainFragment extends Fragment {
      *              the users level.
      */
     public void setTVLevel(String text) {
-        TVLevel.setText(text);
+        TVLevel.setText(getResources().getString(R.string.points) +" "+ text + "/500");
     }
 }

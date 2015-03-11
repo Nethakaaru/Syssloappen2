@@ -163,7 +163,7 @@ public class Controller {
             newPoints = newPoints - 500;
             lvl = String.valueOf(Integer.parseInt(lvl) + 1);
         }
-        mainFragment.setTVPoints("Poäng: " + newPoints + "/500");
+        mainFragment.setTVPoints(newPoints +"");
         mainFragment.setTVLevel("Nivå: " + lvl);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("points", String.valueOf(newPoints));
