@@ -119,6 +119,6 @@ public class MainFragment extends Fragment {
      *              the users level.
      */
     public void setTVLevel(String text) {
-        TVLevel.setText("Nivå: "+ text);
+        TVLevel.setText(text);
     }
 }
