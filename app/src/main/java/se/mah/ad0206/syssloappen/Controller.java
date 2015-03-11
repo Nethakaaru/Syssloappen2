@@ -164,7 +164,7 @@ public class Controller {
             lvl = String.valueOf(Integer.parseInt(lvl) + 1);
         }
         mainFragment.setTVPoints(newPoints +"");
-        mainFragment.setTVLevel("Nivå: " + lvl);
+        mainFragment.setTVLevel("" + lvl);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("points", String.valueOf(newPoints));
         editor.putString("level", lvl);
