@@ -56,7 +56,7 @@ public class DBController extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL("CREATE table chores ( chore VARCHAR(255), points VARCHAR(5));");
-        db.execSQL("CREATE table history (chore VARCHAR(255), points VARCHAR(5), date VARCHAR(12));");
+        db.execSQL("CREATE table history (chore VARCHAR(255), points VARCHAR(5), date VARCHAR(20));");
     }
 
     @Override

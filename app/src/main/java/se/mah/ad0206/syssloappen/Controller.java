@@ -7,11 +7,14 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Sebastian Aspegren on 2015-03-04.
@@ -21,6 +24,7 @@ public class Controller {
     private MainActivity mainActivity;
     private MainFragment mainFragment;
     private AddChoresFragment addChoresFragment;
+    private HistoryFragment historyFragment;
     private DBController dbController;
  //   private String[] chores;
    // private String[] points;
@@ -41,7 +45,9 @@ public class Controller {
         mainFragment = new MainFragment();
         addChoresFragment = new AddChoresFragment();
         addChoresFragment.setController(this);
+        historyFragment= new HistoryFragment();
         dbController = new DBController(mainActivity);
+
         //If it is the users first time we show them the instructions.
        if(isFirstTime()){
            WelcomeFragment welcomeFragment = new WelcomeFragment();
@@ -54,8 +60,7 @@ public class Controller {
         getChoresAndPoints();
        // Toast.makeText(mainActivity,points.get(0),Toast.LENGTH_SHORT).show();
        mainFragment.setAdapter(new ChoreListAdapter(mainActivity,chores,points));
-
-
+        prepHistoryFragment();
     }
 
     /**
@@ -75,6 +80,9 @@ public class Controller {
         fragmentTransaction.commit();
 
     }
+    public String getDate(){
+        return new SimpleDateFormat("dd-MM-yyyy",Locale.getDefault()).format(new Date());
+    }
 
     /**
      * A method used to check if this is the users first time using the application and if they need to see the instructions.
@@ -86,6 +94,19 @@ public class Controller {
         return !preferences.contains("firstTime");
     }
 
+    public void prepHistoryFragment(){
+        dbController.open();
+        Cursor c= dbController.getHistory();
+        ArrayList<String> history = new ArrayList<>();
+        if( c.moveToFirst() ) {
+            do {
+                history.add(c.getString(0) + " " + c.getString(1) + " " + c.getString(2));
+            }while(c.moveToNext());
+        }
+        c.close();
+        dbController.close();
+        historyFragment.setAdapter(new ArrayAdapter<>(mainActivity,android.R.layout.simple_list_item_1, history));
+    }
     /**
      * If the user clicks on this button they'll never have to see the current screen again.
      * We also swap to the main screen.
@@ -144,6 +165,9 @@ public class Controller {
         editor.putString("points", String.valueOf(newPoints));
         editor.putString("level", lvl);
         editor.apply();
+        dbController.open();
+        dbController.saveHistory(this.chores.get(position),this.points.get(position),getDate());
+        dbController.close();
     }
 
     public void setPointsAndLevel() {
@@ -170,7 +194,7 @@ public class Controller {
                 fragment = new DeleteChoreFragment();
                 break;
             case 3:
-                fragment = new HistoryFragment();
+                fragment = historyFragment;
                 break;
 
             default:
