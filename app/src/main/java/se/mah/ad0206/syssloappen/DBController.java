@@ -40,10 +40,23 @@ public class DBController extends SQLiteOpenHelper {
 
         database.insert("chores", null, values);
     }
+
+    public void saveHistory(String chore, String points, String date){
+        ContentValues values = new ContentValues();
+        values.put("chore",chore);
+        values.put("points",points);
+        values.put("date",date);
+
+        database.insert("history",null,values);
+    }
+    public Cursor getHistory(){
+        return database.rawQuery("SELECT chore, points, date from history", new String[]{});
+    }
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL("CREATE table chores ( chore VARCHAR(255),points VARCHAR(5));");
+        db.execSQL("CREATE table chores ( chore VARCHAR(255), points VARCHAR(5));");
+        db.execSQL("CREATE table history (chore VARCHAR(255), points VARCHAR(5), date VARCHAR(12));");
     }
 
     @Override
