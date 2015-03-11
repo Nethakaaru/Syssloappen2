@@ -7,13 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * The main fragment with the current chores, points and level being displayed.
+ * @author Sebastian Aspegren, Jonas Dahlström.
  */
 public class MainFragment extends Fragment {
 
@@ -23,22 +23,38 @@ public class MainFragment extends Fragment {
     private ListView LVChores;
     private ChoreListAdapter adapter;
 
-    public MainFragment() {
-        // Required empty public constructor
-    }
+    /**
+     * Required empty public constructor
+     */
+    public MainFragment() {}
 
-
+    /**
+     * Normal onCreateView.
+     * @param inflater
+     *                  the inflater.
+     * @param container
+     *                  the viewgroup.
+     * @param savedInstanceState
+     *                  the bundle.
+     * @return
+     *                  the view.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main, container, false);
+        //Link the code components to the xml code.
         findComponents(view);
+        //init listeners and such.
         initComponents();
         LVChores.setAdapter(adapter);
         return view;
     }
 
+    /**
+     * Method used to activate listeners. When a chore is clicked send the position of it to the controller.
+     */
     private void initComponents() {
         LVChores.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -48,12 +64,20 @@ public class MainFragment extends Fragment {
         });
     }
 
+    /**
+     * Find all the components using their xml id
+     * @param view
+     *              the view.
+     */
     private void findComponents(View view) {
         TVPoints = (TextView)view.findViewById(R.id.TVPoints);
         TVLevel = (TextView)view.findViewById(R.id.TVLevel);
         LVChores = (ListView)view.findViewById(R.id.LVChores);
     }
 
+    /**
+     * onResume update the points, chores and level.
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -71,14 +95,29 @@ public class MainFragment extends Fragment {
         this.controller = controller;
     }
 
+    /**
+     * Sets the adapter for the list.
+     * @param adapter
+     *                  A custom list adapter containing two text views.
+     */
     public void setAdapter(ChoreListAdapter adapter) {
         this.adapter = adapter;
     }
 
+    /**
+     * Set the current points the user has.
+     * @param text
+     *              users current points.
+     */
     public void setTVPoints(String text) {
        TVPoints.setText(text);
     }
 
+    /**
+     * Set the current level the user has achieved.
+     * @param text
+     *              the users level.
+     */
     public void setTVLevel(String text) {
         TVLevel.setText(text);
     }
