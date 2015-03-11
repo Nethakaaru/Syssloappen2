@@ -10,7 +10,8 @@ import android.widget.Button;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * A fragment with a summary of how the app works that we present the first time its opened.
+ * @author Sebastian Aspegren, Jonas Dahlström.
  */
 public class WelcomeFragment extends Fragment {
 
@@ -20,7 +21,17 @@ public class WelcomeFragment extends Fragment {
         // Required empty public constructor
     }
 
-
+    /**
+     * Normal onCreateView method.
+     * @param inflater
+     *                  inflater for the view.
+     * @param container
+     *                  container for the inflating process.
+     * @param savedInstanceState
+     *                  The bundle.
+     * @return
+     *          the view.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
