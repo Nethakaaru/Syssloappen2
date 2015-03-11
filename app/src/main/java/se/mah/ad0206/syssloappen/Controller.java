@@ -1,10 +1,12 @@
 package se.mah.ad0206.syssloappen;
 
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.view.View;
@@ -27,10 +29,11 @@ public class Controller {
     private HistoryFragment historyFragment;
     private DeleteChoreFragment deleteChoreFragment;
     private DBController dbController;
- //   private String[] chores;
-   // private String[] points;
+    //   private String[] chores;
+    // private String[] points;
     private ArrayList<String> chores = new ArrayList<>();
     private ArrayList<String> points = new ArrayList<>();
+    private ArrayList<String> history = new ArrayList<>();
     private View lastView = null;
     private SharedPreferences preferences;
 
@@ -46,25 +49,26 @@ public class Controller {
         mainFragment = new MainFragment();
         addChoresFragment = new AddChoresFragment();
         addChoresFragment.setController(this);
-        historyFragment= new HistoryFragment();
+        historyFragment = new HistoryFragment();
+        historyFragment.setController(this);
         deleteChoreFragment = new DeleteChoreFragment();
         deleteChoreFragment.setController(this);
         dbController = new DBController(mainActivity);
 
         //If it is the users first time we show them the instructions.
-       if(isFirstTime()){
-           WelcomeFragment welcomeFragment = new WelcomeFragment();
-           welcomeFragment.setController(this);
-           swapFragment(welcomeFragment, false);
-       }else {
-           swapFragment(mainFragment, false);
-           mainFragment.setController(this);
-       }
+        if(isFirstTime()){
+            WelcomeFragment welcomeFragment = new WelcomeFragment();
+            welcomeFragment.setController(this);
+            swapFragment(welcomeFragment, false);
+        }else {
+            swapFragment(mainFragment, false);
+            mainFragment.setController(this);
+        }
         getChoresAndPoints();
-       // Toast.makeText(mainActivity,points.get(0),Toast.LENGTH_SHORT).show();
-       mainFragment.setAdapter(new ChoreListAdapter(mainActivity, chores, points));
+        // Toast.makeText(mainActivity,points.get(0),Toast.LENGTH_SHORT).show();
+        mainFragment.setAdapter(new ChoreListAdapter(mainActivity, chores, points));
         deleteChoreFragment.setAdapter(new ChoreListAdapter(mainActivity, chores, points));
-
+        historyFragment.setAdapter(new ArrayAdapter<>(mainActivity,android.R.layout.simple_list_item_1, history));
     }
 
     /**
@@ -100,8 +104,8 @@ public class Controller {
 
     public void prepHistoryFragment(){
         dbController.open();
-        Cursor c= dbController.getHistory();
-        ArrayList<String> history = new ArrayList<>();
+        Cursor c = dbController.getHistory();
+        history.clear();
         if( c.moveToFirst() ) {
             do {
                 history.add(c.getString(0) + "\nPoäng: " + c.getString(1) + "\nDatum: " + c.getString(2));
@@ -109,7 +113,6 @@ public class Controller {
         }
         c.close();
         dbController.close();
-        historyFragment.setAdapter(new ArrayAdapter<>(mainActivity,android.R.layout.simple_list_item_1, history));
     }
     /**
      * If the user clicks on this button they'll never have to see the current screen again.
@@ -162,6 +165,7 @@ public class Controller {
         if(newPoints >= 500) {
             newPoints = newPoints - 500;
             lvl = String.valueOf(Integer.parseInt(lvl) + 1);
+            messageArduino();
         }
         mainFragment.setTVPoints(newPoints + "");
         mainFragment.setTVLevel(lvl);
@@ -172,6 +176,10 @@ public class Controller {
         dbController.open();
         dbController.saveHistory(this.chores.get(position), this.points.get(position), getDate());
         dbController.close();
+    }
+
+    private void messageArduino() {
+        //ToDo
     }
 
     public void setPointsAndLevel() {
@@ -187,6 +195,29 @@ public class Controller {
         dbController.close();
         this.chores.remove(position);
         this.points.remove(position);
+    }
+
+    public void btnClearHistoryClicked() {
+        new AlertDialog.Builder(mainActivity)
+                .setTitle("Rensa historik")
+                .setMessage("Är du säker på att du vill rensa historiken?")
+                .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dbController.open();
+                        dbController.clearHistory();
+                        dbController.close();
+                        Toast.makeText(mainActivity, "Historik rensad", Toast.LENGTH_SHORT).show();
+                        swapFragment(mainFragment, false);
+                        lastView.setBackgroundColor(mainActivity.getResources().getColor(R.color.list_background));
+                    }
+                })
+                .setNegativeButton("Nej", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Do nothing
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
     public void drawerItemClicked(int position, View view) {

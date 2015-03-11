@@ -48,10 +48,10 @@ public class AddChoresFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add_chores, container, false);
 
         //Populate the spinner with values and set the adapter.
-        String[] arraySpinner = new String[]{"5", "10", "15", "20", "25", "30", "35", "40", "45", "50", "60", "70", "80", "90", "100"};
+        String[] arraySpinner = new String[]{"10", "20", "30", "40", "50", "60", "70", "80", "90", "100"};
         spinnerPoints = (Spinner)view.findViewById(R.id.spinnerPoints);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this.getActivity(),
-                android.R.layout.simple_spinner_item, arraySpinner);
+                R.layout.spinner_item, arraySpinner);
         spinnerPoints.setAdapter(adapter);
 
         //Find some more components.

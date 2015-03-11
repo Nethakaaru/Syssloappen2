@@ -6,10 +6,27 @@
     android:paddingRight="10dp"
     tools:context="se.mah.ad0206.syssloappen.AddChoresFragment">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"
+        android:text="@string/tvAddChoreTopic"/>
+
     <EditText
         android:id="@+id/etChoreName"
         android:hint="@string/addChoreHint"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textCapSentences"
+        android:maxLength="50"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:text="@string/points"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <Spinner

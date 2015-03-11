@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -19,6 +20,8 @@ public class HistoryFragment extends Fragment {
     private ListView lvHistory;
     private TextView tvHistory;
     private ArrayAdapter<String> adapter;
+    private Button btnClearHistory;
+    private Controller controller;
 
     /**
      * Required empty public constructor
@@ -42,8 +45,16 @@ public class HistoryFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_history, container, false);
         //find components.
-         lvHistory = (ListView)view.findViewById(R.id.lvHistory);
+        lvHistory = (ListView)view.findViewById(R.id.lvHistory);
         tvHistory = (TextView)view.findViewById(R.id.tvHistory);
+        btnClearHistory = (Button)view.findViewById(R.id.btnClearHistory);
+        btnClearHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                controller.btnClearHistoryClicked();
+                adapter.notifyDataSetChanged();
+            }
+        });
         //set adapter
         lvHistory.setAdapter(adapter);
         //set the text
@@ -58,6 +69,10 @@ public class HistoryFragment extends Fragment {
      */
     public void setAdapter(ArrayAdapter<String> adapter){
         this.adapter = adapter;
+    }
+
+    public void setController(Controller controller) {
+        this.controller = controller;
     }
 
     /**

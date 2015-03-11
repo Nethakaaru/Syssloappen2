@@ -21,5 +21,7 @@
     <string name="pointsNoColon">Points</string>
     <string name="tvMainTopic">Chores</string>
     <string name="level">Level:</string>
+    <string name="tvAddChoreTopic">Add a chore</string>
+    <string name="tvDeleteChoreTopic">Click on a chore to delete it</string>
 
 </resources>

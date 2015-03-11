@@ -20,5 +20,7 @@
     <string name="pointsNoColon">Poäng</string>
     <string name="tvMainTopic">Sysslor</string>
     <string name="level">Nivå:</string>
+    <string name="tvAddChoreTopic">Lägg till syssla</string>
+    <string name="tvDeleteChoreTopic">Klicka på sysslan du vill ta bort</string>
 
 </resources>
