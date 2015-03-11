@@ -14,8 +14,11 @@
     <string name="btnSeeHistory">Se historik</string>
     <string name="addChoreHint">Namn på syssla…</string>
     <string name="nameInput">Skriv in ett namn</string>
-    <string name="points">Poäng: </string>
+    <string name="points">Poäng:</string>
     <string name="tvHistory">Totalt antal gjorda sysslor: </string>
+    <string name="btnClearHistory">Rensa historik</string>
     <string name="pointsNoColon">Poäng</string>
+    <string name="tvMainTopic">Sysslor</string>
+    <string name="level">Nivå:</string>
 
 </resources>

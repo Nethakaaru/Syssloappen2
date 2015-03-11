@@ -15,8 +15,11 @@
     <string name="btnSeeHistory">View history</string>
     <string name="addChoreHint">Name on chore…</string>
     <string name="nameInput">Write a name</string>
-    <string name="points">"Points: </string>
+    <string name="points">"Points:</string>
     <string name="tvHistory">Total chores done: </string>
+    <string name="btnClearHistory">Clear history</string>
     <string name="pointsNoColon">Points</string>
+    <string name="tvMainTopic">Chores</string>
+    <string name="level">Level:</string>
 
 </resources>

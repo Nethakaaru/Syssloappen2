@@ -177,8 +177,8 @@ public class Controller {
     public void setPointsAndLevel() {
         String points = preferences.getString("points", "0");
         String lvl = preferences.getString("level", "1");
-        mainFragment.setTVPoints("Poäng: " + points + "/500");
-        mainFragment.setTVLevel("Nivå: " + lvl);
+        mainFragment.setTVPoints(points);
+        mainFragment.setTVLevel(lvl);
     }
 
     public void LVDeleteChoresClicked(int position) {

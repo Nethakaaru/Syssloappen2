@@ -6,16 +6,24 @@
     android:paddingRight="10dp">
 
     <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:text="Antal gjorda sysslor: X"
-        android:textSize="25sp"
+        android:textSize="22sp"
+        android:layout_marginBottom="20dp"
         android:textStyle="bold"
         android:id="@+id/tvHistory"
         />
 
     <ListView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/lvHistory" />
+
+    <Button
+        android:id="@+id/btnClearHistory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/lvHistory"
-        android:layout_gravity="center" />
-
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/btnClearHistory"/>
 </LinearLayout>

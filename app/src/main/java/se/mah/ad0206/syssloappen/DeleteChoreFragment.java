@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 /**
@@ -35,6 +36,7 @@ public class DeleteChoreFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 controller.LVDeleteChoresClicked(position);
                 adapter.notifyDataSetChanged();
+                Toast.makeText(getActivity(), "Syssla borttagen", Toast.LENGTH_SHORT).show();
             }
         });
 
