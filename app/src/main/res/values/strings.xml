@@ -16,5 +16,6 @@
     <string name="addChoreHint">Name on chore…</string>
     <string name="nameInput">Write a name</string>
     <string name="points">"Points: </string>
+    <string name="tvHistory">Total chores done: </string>
 
 </resources>

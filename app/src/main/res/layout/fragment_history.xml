@@ -1,9 +1,19 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="se.mah.ad0206.syssloappen.HistoryFragment">
+    android:layout_height="match_parent" tools:context="se.mah.ad0206.syssloappen.HistoryFragment"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="HÄR ÄR DIN HISTORIA!" />
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="Antal gjorda sysslor: X"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:id="@+id/tvHistory"
+        />
 
-</FrameLayout>
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lvHistory"
+        android:layout_gravity="center" />
+
+</LinearLayout>
