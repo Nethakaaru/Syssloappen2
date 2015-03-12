@@ -27,6 +27,10 @@
     <string name="clearHistory">Clear History</string>
     <string name="deleteHistoryConfirm">Are you sure you want to delete your history? \n (This will not reset your points or level)</string>
     <string name="historyCleared">History Cleared</string>
+    <string name="drawerOpen">The drawer opened</string>
+    <string name="drawerClose">The drawer closed</string>
+    <string name="exitApp">Exit the application</string>
+    <string name="exitAppConfirm">Are you sure you want to close the chore app?</string>
 
 
 </resources>
