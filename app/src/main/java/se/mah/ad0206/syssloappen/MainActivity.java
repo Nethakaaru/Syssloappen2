@@ -1,5 +1,7 @@
 package se.mah.ad0206.syssloappen;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -58,52 +60,23 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-/*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.menuAddChore) {
-            AddChoresFragment addChoresFragment = new AddChoresFragment();
-            addChoresFragment.setController(controller);
-            controller.swapFragment(addChoresFragment, true);
-            return true;
-        } else if(id == R.id.menuDeleteChore) {
-            DeleteChoreFragment deleteChoreFragment = new DeleteChoreFragment();
-            deleteChoreFragment.setController(controller);
-            controller.swapFragment(deleteChoreFragment, true);
-            return true;
-        } else if(id == R.id.menuSeeHistory) {
-            HistoryFragment historyFragment = new HistoryFragment();
-            historyFragment.setController(controller);
-            controller.swapFragment(historyFragment, true);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     @Override
     public void onBackPressed() {
-        if (getFragmentManager().getBackStackEntryCount() > 0 ){
-            getFragmentManager().popBackStack();
-        } else {
-            super.onBackPressed();
-        }
+        new AlertDialog.Builder(this)
+                .setTitle("Avsluta applikation")
+                .setMessage("Är du säker på att du vill avsluta Syssloappen?")
+                .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        MainActivity.super.onBackPressed();
+                    }
+                })
+                .setNegativeButton("Nej", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Do nothing
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
-*/
-
 
 }
