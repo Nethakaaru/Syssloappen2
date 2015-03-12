@@ -29,8 +29,6 @@ public class Controller {
     private HistoryFragment historyFragment;
     private DeleteChoreFragment deleteChoreFragment;
     private DBController dbController;
-    //   private String[] chores;
-    // private String[] points;
     private ArrayList<String> chores = new ArrayList<>();
     private ArrayList<String> points = new ArrayList<>();
     private ArrayList<String> history = new ArrayList<>();
@@ -38,12 +36,14 @@ public class Controller {
     private SharedPreferences preferences;
 
     /**
-     * This is the constructor.
+     * This is the constructor. It prepares all the fragments and the database for usage.
+     * It also checks if we need to present the user with instructions on how the app works.
      *
      * @param mainActivity
      *                      A normal reference to the mainActivity.
      */
     public Controller(MainActivity mainActivity){
+        //prepare our classes.
         this.mainActivity = mainActivity;
         preferences = mainActivity.getSharedPreferences("myCache", Context.MODE_PRIVATE);
         mainFragment = new MainFragment();
@@ -61,11 +61,12 @@ public class Controller {
             welcomeFragment.setController(this);
             swapFragment(welcomeFragment, false);
         }else {
+            //swap to the main fragment.
             swapFragment(mainFragment, false);
             mainFragment.setController(this);
         }
+        //load data and use it to set adapters for the lists.
         getChoresAndPoints();
-        // Toast.makeText(mainActivity,points.get(0),Toast.LENGTH_SHORT).show();
         mainFragment.setAdapter(new ChoreListAdapter(mainActivity, chores, points));
         deleteChoreFragment.setAdapter(new ChoreListAdapter(mainActivity, chores, points));
         historyFragment.setAdapter(new ArrayAdapter<>(mainActivity,android.R.layout.simple_list_item_1, history));
@@ -88,6 +89,12 @@ public class Controller {
         fragmentTransaction.commit();
 
     }
+
+    /**
+     * A method to get today's date in a european format.
+     * @return
+     *          today's date as a string.
+     */
     public String getDate(){
         return new SimpleDateFormat("dd-MM-yyyy",Locale.getDefault()).format(new Date());
     }
@@ -102,12 +109,16 @@ public class Controller {
         return !preferences.contains("firstTime");
     }
 
+    /**
+     * Method to prepare the users history. Load att the data saved in the history table.
+     */
     public void prepHistoryFragment(){
         dbController.open();
         Cursor c = dbController.getHistory();
         history.clear();
         if( c.moveToFirst() ) {
             do {
+                //Add everything neatly to an arrayList.
                 history.add(c.getString(0) + "\nPoäng: " + c.getString(1) + "\nDatum: " + c.getString(2));
             }while(c.moveToNext());
         }
@@ -127,7 +138,7 @@ public class Controller {
     }
 
     /**
-     *
+     *A method that loads all the chores with their points awarded from the database and puts them in arrayLists.
      */
     public void getChoresAndPoints(){
         chores.clear();
@@ -145,43 +156,76 @@ public class Controller {
         dbController.close();
     }
 
+    /**
+     * A method to add data to the chore table in the database.
+     * @param chore
+     *              the chore we are storing to the database.
+     * @param points
+     *              the points it awards.
+     */
     public void insertIntoDB(String chore, String points){
         dbController.open();
         dbController.save(chore, points);
         dbController.close();
     }
 
+    /**
+     * If a chore is added we add it to the database and message the user it was added.
+     * @param chore
+     *              the chore the user added.
+     * @param points
+     *              the points the chore awards.
+     */
     public void btnAddChoreClicked(String chore, String points) {
         insertIntoDB(chore, points);
-        Toast.makeText(mainActivity, "Syssla tillagd", Toast.LENGTH_SHORT).show();
+        Toast.makeText(mainActivity, mainActivity.getResources().getString(R.string.choreAdded), Toast.LENGTH_SHORT).show();
 
     }
 
+    /**
+     * If the user clicks on the list...
+     *
+     * @param position
+     *                  where in the list the user clicked.
+     */
     public void LVChoresClicked(int position) {
+        //get the users current points and lvl.
         String points = preferences.getString("points", "0");
         String lvl = preferences.getString("level", "1");
+        //get points awarded for the chore clicked and add it to the users points.
         String chorePoints = this.points.get(position);
         int newPoints = (Integer.parseInt(points) + Integer.parseInt(chorePoints));
+        //if it exceeds 500 the user levels up.
         if(newPoints >= 500) {
             newPoints = newPoints - 500;
             lvl = String.valueOf(Integer.parseInt(lvl) + 1);
+            //And Arduino is messaged to reward the user.
             messageArduino();
         }
+        //Show the user their points have increased.
         mainFragment.setTVPoints(newPoints + "");
         mainFragment.setTVLevel(lvl);
+        //Save the new points and lvl the user has.
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("points", String.valueOf(newPoints));
         editor.putString("level", lvl);
         editor.apply();
+        //Save the chore that was done to the users history.
         dbController.open();
         dbController.saveHistory(this.chores.get(position), this.points.get(position), getDate());
         dbController.close();
     }
 
+    /**
+     * A method that messages Arduino to move when the user levels up.
+     */
     private void messageArduino() {
         //ToDo
     }
 
+    /**
+     * Get the stored points and level and present them visually to the user.
+     */
     public void setPointsAndLevel() {
         String points = preferences.getString("points", "0");
         String lvl = preferences.getString("level", "1");
@@ -189,6 +233,12 @@ public class Controller {
         mainFragment.setTVLevel(lvl);
     }
 
+    /**
+     * A method called when the user wants to delete a chore.
+     * It removes the chore then updates the list.
+     * @param position
+     *                  The position in the list the user clicked.
+     */
     public void LVDeleteChoresClicked(int position) {
         dbController.open();
         dbController.deleteChore(this.chores.get(position), this.points.get(position));
@@ -197,20 +247,28 @@ public class Controller {
         this.points.remove(position);
     }
 
+    /**
+     * A method used to clear the users completed chores in the history list.
+     */
     public void btnClearHistoryClicked() {
+        //Is the user sure or did they click by mistake?
         new AlertDialog.Builder(mainActivity)
-                .setTitle("Rensa historik")
-                .setMessage("Är du säker på att du vill rensa historiken?")
+                .setTitle(mainActivity.getResources().getString(R.string.clearHistory))
+                .setMessage(mainActivity.getResources().getString(R.string.deleteHistoryConfirm))
+                //If they say yes...
                 .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        //Delete all the completed chores.
                         dbController.open();
                         dbController.clearHistory();
                         dbController.close();
-                        Toast.makeText(mainActivity, "Historik rensad", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mainActivity, mainActivity.getResources().getString(R.string.historyCleared), Toast.LENGTH_SHORT).show();
+                        //And swap to the mainfragment.
                         swapFragment(mainFragment, false);
                         lastView.setBackgroundColor(mainActivity.getResources().getColor(R.color.list_background));
                     }
                 })
+                //If they clicked by mistake...
                 .setNegativeButton("Nej", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // Do nothing
@@ -220,12 +278,20 @@ public class Controller {
                 .show();
     }
 
+    /**
+     *  If the user clicked in the drawer...
+     * @param position
+     *                  where in the list the user clicked.
+     * @param view
+     *                  which view the user clied on.
+     */
     public void drawerItemClicked(int position, View view) {
         Fragment fragment = null;
         if(lastView != null) {
+            //reset the color of the last pressed view.
             lastView.setBackgroundColor(mainActivity.getResources().getColor(R.color.list_background));
         }
-
+        //Switch which fragment is being shown depending on what was clicked.
         switch (position) {
             case 0:
                 fragment = mainFragment;
@@ -244,11 +310,12 @@ public class Controller {
             default:
                 break;
         }
-
+        //set the color of the clicked one to red.
         view.setBackgroundColor(mainActivity.getResources().getColor(R.color.list_background_pressed));
         lastView = view;
 
         if (fragment != null) {
+            //Swap the fragment.
             swapFragment(fragment,false);
         }
     }

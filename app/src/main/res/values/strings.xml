@@ -23,5 +23,10 @@
     <string name="level">Level:</string>
     <string name="tvAddChoreTopic">Add a chore</string>
     <string name="tvDeleteChoreTopic">Click on a chore to delete it</string>
+    <string name="choreAdded">Chore added</string>
+    <string name="clearHistory">Clear History</string>
+    <string name="deleteHistoryConfirm">Are you sure you want to delete your history? \n (This will not reset your points or level)</string>
+    <string name="historyCleared">History Cleared</string>
+
 
 </resources>

@@ -22,5 +22,10 @@
     <string name="level">Nivå:</string>
     <string name="tvAddChoreTopic">Lägg till syssla</string>
     <string name="tvDeleteChoreTopic">Klicka på sysslan du vill ta bort</string>
+    <string name="choreAdded">Syssla tillagd</string>
+    <string name="clearHistory">Rensa Historik</string>
+    <string name="deleteHistoryConfirm">Är du säker på att du vill rensa historiken? \n (Detta kommer inte att återställa dina poäng eller level)</string>
+    <string name="historyCleared">Historik Rensad</string>
+
 
 </resources>
