@@ -45,6 +45,12 @@ public class DeleteChoreFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        controller.getChoresAndPoints();
+    }
+
     public void setController(Controller controller) {
         this.controller = controller;
     }
