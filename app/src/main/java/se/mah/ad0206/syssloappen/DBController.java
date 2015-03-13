@@ -114,6 +114,11 @@ public class DBController extends SQLiteOpenHelper {
     public void deleteChore(String chore, String points) {
         database.delete("chores", "chore='"+chore+"' and points='"+points+"'", null);
     }
+
+    /**
+     * A method to delete users.
+     * @param user
+     */
     public void deleteUser(String user) {
         database.delete("users", "user='"+user+"'", null);
     }
