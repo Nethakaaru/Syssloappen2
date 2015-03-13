@@ -113,6 +113,9 @@ public class DBController extends SQLiteOpenHelper {
     public void deleteChore(String chore, String points) {
         database.delete("chores", "chore='"+chore+"' and points='"+points+"'", null);
     }
+    public void deleteUser(String user) {
+        database.delete("users", "user='"+user+"'", null);
+    }
 
     /**
      * The method that creates the tables. only used once.

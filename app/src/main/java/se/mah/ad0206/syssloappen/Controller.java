@@ -364,7 +364,10 @@ public class Controller {
     }
 
     public void deleteUserClicked(int position) {
-
+        users.remove(position);
+        dbController.open();
+        dbController.deleteUser(users.get(position));
+        dbController.close();
     }
 
     public void swapUserClicked(int position) {
