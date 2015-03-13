@@ -392,15 +392,13 @@ public class Controller {
                         dbController.deleteUser(users.get(pos));
                         dbController.close();
                         SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString(user + "points","0");
-                        editor.putString(user + "level", "1");
+                        editor.remove(user + "points");
+                        editor.remove(user + "level");
                         editor.apply();
                         users.remove(pos);
                         user = null;
 
                         swapFragment(mainFragment, false);
-                    //    mainFragment.setTVPoints("0");
-                      //  mainFragment.setTVLevel("1");
                         lastView.setBackgroundColor(mainActivity.getResources().getColor(R.color.list_background));
                     }
                 })

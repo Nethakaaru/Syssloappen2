@@ -62,7 +62,7 @@ public class MainActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        //The text in the manu.
+        //The text in the menu.
         String[] pages = new String[]{getResources().getString(R.string.pageMain), getResources().getString(R.string.pageAddChore), getResources().getString(R.string.pageRemoveChore), getResources().getString(R.string.pageHistory), getResources().getString(R.string.pageAddUser), getResources().getString(R.string.pageRemoveUser), getResources().getString(R.string.pageSwapUser)};
         DrawerAdapter drawerAdapter = new DrawerAdapter(this, pages);
         mDrawerList.setAdapter(drawerAdapter);
@@ -140,8 +140,6 @@ public class MainActivity extends ActionBarActivity {
         if (requestCode	== REQUEST_ENABLE_BT) {
             if (resultCode == RESULT_OK) {
                 connectToBluetoothDevice(mac);
-            } else {
-                // Bluetooth blev inte aktiverat
             }
         }
     }
@@ -156,14 +154,12 @@ public class MainActivity extends ActionBarActivity {
 
     private class ConnectThread	extends Thread {
         private final BluetoothSocket mmSocket;
-        private final BluetoothDevice mmDevice;
 
         public ConnectThread(BluetoothDevice device) {
             BluetoothSocket tmp	= null;
-            mmDevice = device;
             try {
                 tmp	= device.createRfcommSocketToServiceRecord(SPP_UUID);
-            }	catch (IOException e) {
+            }	catch (IOException ignored) {
             }
             mmSocket = tmp;
         }
@@ -173,7 +169,7 @@ public class MainActivity extends ActionBarActivity {
             }	catch (IOException connectException) {
                 try {
                     mmSocket.close();
-                } catch (IOException closeException) {
+                } catch (IOException ignored) {
                 }
                 return;
             }
@@ -185,7 +181,7 @@ public class MainActivity extends ActionBarActivity {
         public void cancel()	{
             try {
                 mmSocket.close();
-            } catch (IOException e) {
+            } catch (IOException ignored) {
             }
         }
     }
@@ -202,7 +198,7 @@ public class MainActivity extends ActionBarActivity {
             try {
                 tmpIn =	socket.getInputStream();
                 tmpOut = socket.getOutputStream();
-            } catch (IOException e)	{
+            } catch (IOException ignored)	{
             }
             mmInStream = tmpIn;
             mmOutStream = tmpOut;
@@ -225,14 +221,14 @@ public class MainActivity extends ActionBarActivity {
         public void write(byte[] bytes)	{
             try {
                 mmOutStream.write(bytes);
-            } catch (IOException e)	{
+            } catch (IOException ignored)	{
             }
         }
 
         public void cancel() {
             try {
                 mmSocket.close();
-            } catch (IOException e)	{
+            } catch (IOException ignored)	{
             }
         }
     }
