@@ -52,6 +52,7 @@ public class Controller {
         this.mainActivity = mainActivity;
         preferences = mainActivity.getSharedPreferences("myCache", Context.MODE_PRIVATE);
         mainFragment = new MainFragment();
+        mainFragment.setController(this);
         addChoresFragment = new AddChoresFragment();
         addChoresFragment.setController(this);
         historyFragment = new HistoryFragment();
@@ -64,7 +65,7 @@ public class Controller {
         deleteUserFragment = new DeleteUserFragment();
         deleteUserFragment.setController(this);
         swapUserFragment = new SwapUserFragment();
-        swapUserFragment.setController(this);
+
 
         //If it is the users first time we show them the instructions.
         if(isFirstTime()){
@@ -73,8 +74,8 @@ public class Controller {
             swapFragment(welcomeFragment, false);
         }else {
             //swap to the main fragment.
-            swapFragment(mainFragment, false);
-            mainFragment.setController(this);
+            swapFragment(swapUserFragment, false);
+            swapUserFragment.setController(this);
         }
         //load data and use it to set adapters for the lists.
         getChoresAndPoints();
@@ -364,5 +365,9 @@ public class Controller {
 
     public void deleteUserClicked(int position) {
 
+    }
+
+    public void swapUserClicked(int position) {
+        user=users.get(position);
     }
 }
