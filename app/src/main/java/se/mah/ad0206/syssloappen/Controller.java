@@ -82,6 +82,7 @@ public class Controller {
         mainFragment.setAdapter(new ChoreListAdapter(mainActivity, chores, points));
         deleteChoreFragment.setAdapter(new ChoreListAdapter(mainActivity, chores, points));
         historyFragment.setAdapter(new ArrayAdapter<>(mainActivity,android.R.layout.simple_list_item_1, history));
+        deleteUserFragment.setAdapter(new ArrayAdapter<>(mainActivity,android.R.layout.simple_list_item_1,users));
     }
 
     /**

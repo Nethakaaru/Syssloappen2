@@ -42,9 +42,13 @@ public class AddUserFragment extends Fragment {
         btnAddUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                controller.btnAddUserClicked(etAddUser.getText().toString());
-                etAddUser.setText("");
-                Toast.makeText(getActivity(),"Användare tillagd",Toast.LENGTH_SHORT).show();
+                if(etAddUser.getText().toString()=="") {
+                    controller.btnAddUserClicked(etAddUser.getText().toString());
+                    etAddUser.setText("");
+                    Toast.makeText(getActivity(), "Användare tillagd", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getActivity(), "Skriv in ett namn", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
