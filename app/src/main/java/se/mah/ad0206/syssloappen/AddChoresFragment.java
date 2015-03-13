@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 
 /**
@@ -68,7 +67,7 @@ public class AddChoresFragment extends Fragment {
                     controller.btnAddChoreClicked(etChoreName.getText().toString(), spinnerPoints.getSelectedItem().toString());
                     etChoreName.setText("");
                 } else {
-                    Toast.makeText(getActivity(), R.string.nameInput, Toast.LENGTH_SHORT).show();
+                  controller.toastShort(getResources().getString(R.string.nameInput));
                 }
             }
         });

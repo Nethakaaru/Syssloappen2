@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 
 /**
@@ -19,7 +18,6 @@ public class SwapUserFragment extends Fragment {
 
 
     private Controller controller;
-    private ListView lvSwapUser;
     private ArrayAdapter adapter;
 
     public SwapUserFragment() {
@@ -32,7 +30,7 @@ public class SwapUserFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_swap_user, container, false);
-        lvSwapUser=(ListView)view.findViewById(R.id.LVSwapUser);
+        ListView lvSwapUser = (ListView) view.findViewById(R.id.LVSwapUser);
         lvSwapUser.setAdapter(adapter);
         lvSwapUser.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

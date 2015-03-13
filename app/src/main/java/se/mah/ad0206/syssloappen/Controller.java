@@ -243,7 +243,7 @@ public class Controller {
             dbController.saveHistory(this.chores.get(position), this.points.get(position), getDate(), user);
             dbController.close();
         }else
-            Toast.makeText(mainActivity,"Välj en användare",Toast.LENGTH_SHORT).show();
+           toastShort("Välj en användare");
     }
 
     /**
@@ -293,7 +293,7 @@ public class Controller {
                         dbController.clearHistory();
                         dbController.close();
                         Toast.makeText(mainActivity, mainActivity.getResources().getString(R.string.historyCleared), Toast.LENGTH_SHORT).show();
-                        //And swap to the mainfragment.
+                        //And swap to the main fragment.
                         swapFragment(mainFragment, false);
                         lastView.setBackgroundColor(mainActivity.getResources().getColor(R.color.list_background));
                     }
@@ -366,7 +366,7 @@ public class Controller {
         dbController.saveUser(user);
         dbController.close();
         this.user=user;
-        Toast.makeText(mainActivity,user+ "är nu användaren",Toast.LENGTH_SHORT).show();
+       toastShort(user+ "är nu användaren");
     }
 
     public void deleteUserClicked(int position) {
@@ -379,8 +379,12 @@ public class Controller {
     public void swapUserClicked(int position) {
         user = users.get(position);
         swapFragment(mainFragment, false);
-        Toast.makeText(mainActivity, user + " är nu aktiv användare", Toast.LENGTH_SHORT).show();
+        toastShort( user + " är nu aktiv användare");
         if(lastView != null)
             lastView.setBackgroundColor(mainActivity.getResources().getColor(R.color.list_background));
+    }
+
+    public void toastShort(String text){
+        Toast.makeText(mainActivity, text, Toast.LENGTH_SHORT).show();
     }
 }

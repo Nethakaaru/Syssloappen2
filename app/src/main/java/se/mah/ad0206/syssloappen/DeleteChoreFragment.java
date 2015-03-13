@@ -8,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
-
 
 /**
  * A fragment that lets you delete active chores so they are no longer displayed on the main page.
@@ -49,7 +47,7 @@ public class DeleteChoreFragment extends Fragment {
                 controller.LVDeleteChoresClicked(position);
                 adapter.notifyDataSetChanged();
                 //notify the user the chore was removed.
-                Toast.makeText(getActivity(), "Syssla borttagen", Toast.LENGTH_SHORT).show();
+                controller.toastShort("Syssla borttagen");
             }
         });
 

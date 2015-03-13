@@ -8,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,9 +43,9 @@ public class AddUserFragment extends Fragment {
                 if(!etAddUser.getText().toString().equals("")) {
                     controller.btnAddUserClicked(etAddUser.getText().toString());
                     etAddUser.setText("");
-                    Toast.makeText(getActivity(), "Användare tillagd", Toast.LENGTH_SHORT).show();
+                   controller.toastShort("Användare tillagd");
                 }else{
-                    Toast.makeText(getActivity(), "Skriv in ett namn", Toast.LENGTH_SHORT).show();
+                    controller.toastShort("Skriv in ett namn");
                 }
             }
         });

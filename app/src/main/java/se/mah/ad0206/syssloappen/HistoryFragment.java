@@ -20,7 +20,6 @@ public class HistoryFragment extends Fragment {
     private ListView lvHistory;
     private TextView tvHistory;
     private ArrayAdapter<String> adapter;
-    private Button btnClearHistory;
     private Controller controller;
 
     /**
@@ -47,7 +46,7 @@ public class HistoryFragment extends Fragment {
         //find components.
         lvHistory = (ListView)view.findViewById(R.id.lvHistory);
         tvHistory = (TextView)view.findViewById(R.id.tvHistory);
-        btnClearHistory = (Button)view.findViewById(R.id.btnClearHistory);
+        Button btnClearHistory = (Button) view.findViewById(R.id.btnClearHistory);
         btnClearHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
