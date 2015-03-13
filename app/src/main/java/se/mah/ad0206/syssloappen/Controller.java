@@ -216,31 +216,34 @@ public class Controller {
      *                  where in the list the user clicked.
      */
     public void LVChoresClicked(int position) {
-        //get the users current points and lvl.
-        String points = preferences.getString(user+"points", "0");
-        String lvl = preferences.getString(user+"level", "1");
-        //get points awarded for the chore clicked and add it to the users points.
-        String chorePoints = this.points.get(position);
-        int newPoints = (Integer.parseInt(points) + Integer.parseInt(chorePoints));
-        //if it exceeds 500 the user levels up.
-        if(newPoints >= 500) {
-            newPoints = newPoints - 500;
-            lvl = String.valueOf(Integer.parseInt(lvl) + 1);
-            //And Arduino is messaged to reward the user.
-            messageArduino();
-        }
-        //Show the user their points have increased.
-        mainFragment.setTVPoints(newPoints + "");
-        mainFragment.setTVLevel(lvl);
-        //Save the new points and lvl the user has.
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(user+"points", String.valueOf(newPoints));
-        editor.putString(user+"level", lvl);
-        editor.apply();
-        //Save the chore that was done to the users history.
-        dbController.open();
-        dbController.saveHistory(this.chores.get(position), this.points.get(position), getDate(), user);
-        dbController.close();
+        if(user!=null) {
+            //get the users current points and lvl.
+            String points = preferences.getString(user + "points", "0");
+            String lvl = preferences.getString(user + "level", "1");
+            //get points awarded for the chore clicked and add it to the users points.
+            String chorePoints = this.points.get(position);
+            int newPoints = (Integer.parseInt(points) + Integer.parseInt(chorePoints));
+            //if it exceeds 500 the user levels up.
+            if (newPoints >= 500) {
+                newPoints = newPoints - 500;
+                lvl = String.valueOf(Integer.parseInt(lvl) + 1);
+                //And Arduino is messaged to reward the user.
+                messageArduino();
+            }
+            //Show the user their points have increased.
+            mainFragment.setTVPoints(newPoints + "");
+            mainFragment.setTVLevel(lvl);
+            //Save the new points and lvl the user has.
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString(user + "points", String.valueOf(newPoints));
+            editor.putString(user + "level", lvl);
+            editor.apply();
+            //Save the chore that was done to the users history.
+            dbController.open();
+            dbController.saveHistory(this.chores.get(position), this.points.get(position), getDate(), user);
+            dbController.close();
+        }else
+            Toast.makeText(mainActivity,"Välj en användare",Toast.LENGTH_SHORT).show();
     }
 
     /**
