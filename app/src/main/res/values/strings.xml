@@ -44,6 +44,8 @@
     <string name="pageRemoveUser">Remove users</string>
     <string name="pageSwapUser">Swap user</string>
     <string name="deleteUserConfirm">Are you sure you want to remove</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 
 

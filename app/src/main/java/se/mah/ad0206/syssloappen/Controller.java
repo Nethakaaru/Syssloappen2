@@ -290,7 +290,7 @@ public class Controller {
                 .setTitle(mainActivity.getResources().getString(R.string.clearHistory))
                 .setMessage(mainActivity.getResources().getString(R.string.deleteHistoryConfirm))
                 //If they say yes...
-                .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                .setPositiveButton(mainActivity.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         //Delete all the completed chores.
                         dbController.open();
@@ -303,7 +303,7 @@ public class Controller {
                     }
                 })
                 //If they clicked by mistake...
-                .setNegativeButton("Nej", new DialogInterface.OnClickListener() {
+                .setNegativeButton(mainActivity.getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // Do nothing
                     }
@@ -379,7 +379,7 @@ public class Controller {
                 .setTitle(mainActivity.getResources().getString(R.string.clearHistory))
                 .setMessage(mainActivity.getResources().getString(R.string.deleteUserConfirm)+ " " + users.get(pos) + "?")
                         //If they say yes...
-                .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                .setPositiveButton(mainActivity.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         //Delete all the completed chores.
                         dbController.open();
@@ -390,7 +390,7 @@ public class Controller {
                     }
                 })
                         //If they clicked by mistake...
-                .setNegativeButton("Nej", new DialogInterface.OnClickListener() {
+                .setNegativeButton(mainActivity.getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // Do nothing
                     }
