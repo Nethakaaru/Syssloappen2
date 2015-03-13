@@ -205,7 +205,7 @@ public class Controller {
      */
     public void btnAddChoreClicked(String chore, String points) {
         insertIntoDB(chore, points);
-        Toast.makeText(mainActivity, mainActivity.getResources().getString(R.string.choreAdded), Toast.LENGTH_SHORT).show();
+       toastShort( mainActivity.getResources().getString(R.string.choreAdded));
 
     }
 
@@ -243,7 +243,7 @@ public class Controller {
             dbController.saveHistory(this.chores.get(position), this.points.get(position), getDate(), user);
             dbController.close();
         }else
-           toastShort("Välj en användare");
+          toastShort("Välj en användare");
     }
 
     /**
@@ -292,7 +292,7 @@ public class Controller {
                         dbController.open();
                         dbController.clearHistory();
                         dbController.close();
-                        Toast.makeText(mainActivity, mainActivity.getResources().getString(R.string.historyCleared), Toast.LENGTH_SHORT).show();
+                        toastShort( mainActivity.getResources().getString(R.string.historyCleared));
                         //And swap to the main fragment.
                         swapFragment(mainFragment, false);
                         lastView.setBackgroundColor(mainActivity.getResources().getColor(R.color.list_background));
@@ -366,7 +366,7 @@ public class Controller {
         dbController.saveUser(user);
         dbController.close();
         this.user=user;
-       toastShort(user+ "är nu användaren");
+      toastShort(user+ "är nu användaren");
     }
 
     public void deleteUserClicked(int position) {
@@ -379,7 +379,7 @@ public class Controller {
     public void swapUserClicked(int position) {
         user = users.get(position);
         swapFragment(mainFragment, false);
-        toastShort( user + " är nu aktiv användare");
+       toastShort( user + " är nu aktiv användare");
         if(lastView != null)
             lastView.setBackgroundColor(mainActivity.getResources().getColor(R.color.list_background));
     }
@@ -387,4 +387,5 @@ public class Controller {
     public void toastShort(String text){
         Toast.makeText(mainActivity, text, Toast.LENGTH_SHORT).show();
     }
+
 }
