@@ -31,13 +31,17 @@ public class DeleteUserFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_delete_user, container, false);
         ListView lvDeleteUsers = (ListView) view.findViewById(R.id.LVDeleteUser);
-        lvDeleteUsers.setAdapter(adapter);
+
         lvDeleteUsers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 controller.deleteUserClicked(position);
+                adapter.notifyDataSetChanged();
             }
         });
+
+        lvDeleteUsers.setAdapter(adapter);
+
         return view;
     }
 

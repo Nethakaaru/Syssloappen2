@@ -39,6 +39,7 @@ public class Controller {
     private ArrayList<String> users = new ArrayList<>();
     private View lastView = null;
     private SharedPreferences preferences;
+    private boolean toggle = true;
 
     /**
      * This is the constructor. It prepares all the fragments and the database for usage.
@@ -250,7 +251,8 @@ public class Controller {
      * A method that messages Arduino to move when the user levels up.
      */
     private void messageArduino() {
-        //ToDo
+        mainActivity.sendMessage(toggle ? "H".getBytes() : "L".getBytes());
+        toggle = !toggle;
     }
 
     /**
@@ -370,10 +372,11 @@ public class Controller {
     }
 
     public void deleteUserClicked(int position) {
-        users.remove(position);
         dbController.open();
         dbController.deleteUser(users.get(position));
         dbController.close();
+        users.remove(position);
+        user = null;
     }
 
     public void swapUserClicked(int position) {
