@@ -42,7 +42,7 @@ public class AddUserFragment extends Fragment {
         btnAddUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(etAddUser.getText().toString()=="") {
+                if(!etAddUser.getText().toString().equals("")) {
                     controller.btnAddUserClicked(etAddUser.getText().toString());
                     etAddUser.setText("");
                     Toast.makeText(getActivity(), "Användare tillagd", Toast.LENGTH_SHORT).show();

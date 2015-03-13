@@ -41,9 +41,17 @@ public class DeleteUserFragment extends Fragment {
         });
         return view;
     }
-public void setAdapter(ArrayAdapter adapter){
-    this.adapter=adapter;
-}
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        controller.loadUsers();
+    }
+
+    public void setAdapter(ArrayAdapter adapter){
+        this.adapter=adapter;
+    }
+
     public void setController(Controller controller) {
         this.controller = controller;
     }
