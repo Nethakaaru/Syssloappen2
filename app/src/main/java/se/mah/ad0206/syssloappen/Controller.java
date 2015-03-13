@@ -365,6 +365,8 @@ public class Controller {
         if(!users.contains(user))
         dbController.saveUser(user);
         dbController.close();
+        this.user=user;
+        Toast.makeText(mainActivity,user+ "är nu användaren",Toast.LENGTH_SHORT).show();
     }
 
     public void deleteUserClicked(int position) {
