@@ -66,6 +66,7 @@ public class Controller {
         deleteUserFragment = new DeleteUserFragment();
         deleteUserFragment.setController(this);
         swapUserFragment = new SwapUserFragment();
+        swapUserFragment.setController(this);
 
 
         //If it is the users first time we show them the instructions.
@@ -76,7 +77,6 @@ public class Controller {
         }else {
             //swap to the main fragment.
             swapFragment(swapUserFragment, false);
-            swapUserFragment.setController(this);
         }
         //load data and use it to set adapters for the lists.
         getChoresAndPoints();
@@ -206,7 +206,7 @@ public class Controller {
      */
     public void btnAddChoreClicked(String chore, String points) {
         insertIntoDB(chore, points);
-       toastShort( mainActivity.getResources().getString(R.string.choreAdded));
+       toastShort(mainActivity.getResources().getString(R.string.choreAdded));
 
     }
 
@@ -243,10 +243,11 @@ public class Controller {
             dbController.open();
             dbController.saveHistory(this.chores.get(position), this.points.get(position), getDate(), user);
             dbController.close();
-        }else
-          toastShort(mainActivity.getResources().getString(R.string.pickUser));
-        mainFragment.setTVPoints("0/500");
-        mainFragment.setTVLevel("0");
+        }else {
+            toastShort(mainActivity.getResources().getString(R.string.pickUser));
+            mainFragment.setTVPoints("0");
+            mainFragment.setTVLevel("1");
+        }
     }
 
     /**
@@ -287,7 +288,7 @@ public class Controller {
     public void btnClearHistoryClicked() {
         //Is the user sure or did they click by mistake?
         new AlertDialog.Builder(mainActivity)
-                .setTitle(mainActivity.getResources().getString(R.string.pageRemoveUser))
+                .setTitle(mainActivity.getResources().getString(R.string.clearHistory))
                 .setMessage(mainActivity.getResources().getString(R.string.deleteHistoryConfirm))
                 //If they say yes...
                 .setPositiveButton(mainActivity.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
@@ -296,7 +297,7 @@ public class Controller {
                         dbController.open();
                         dbController.clearHistory();
                         dbController.close();
-                        toastShort( mainActivity.getResources().getString(R.string.historyCleared));
+                        toastShort(mainActivity.getResources().getString(R.string.historyCleared));
                         //And swap to the main fragment.
                         swapFragment(mainFragment, false);
                         lastView.setBackgroundColor(mainActivity.getResources().getColor(R.color.list_background));
@@ -365,18 +366,23 @@ public class Controller {
     }
 
     public void btnAddUserClicked(String user) {
-        dbController.open();
-        if(!users.contains(user))
-        dbController.saveUser(user);
-        dbController.close();
-        this.user=user;
-      toastShort(user + " " + mainActivity.getResources().getString(R.string.isNowUser));
+
+        if(!users.contains(user)){
+            dbController.open();
+            dbController.saveUser(user);
+            dbController.close();
+            this.user=user;
+            toastShort(user + " " + mainActivity.getResources().getString(R.string.isNowUser));
+            loadUsers();
+        }else
+            toastShort("Användaren finns redan.");
+
     }
 
     public void deleteUserClicked(int position) {
         final int pos=position;
         new AlertDialog.Builder(mainActivity)
-                .setTitle(mainActivity.getResources().getString(R.string.clearHistory))
+                .setTitle(mainActivity.getResources().getString(R.string.pageRemoveUser))
                 .setMessage(mainActivity.getResources().getString(R.string.deleteUserConfirm)+ " " + users.get(pos) + "?")
                         //If they say yes...
                 .setPositiveButton(mainActivity.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
@@ -385,8 +391,17 @@ public class Controller {
                         dbController.open();
                         dbController.deleteUser(users.get(pos));
                         dbController.close();
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString(user + "points","0");
+                        editor.putString(user + "level", "1");
+                        editor.apply();
                         users.remove(pos);
                         user = null;
+
+                        swapFragment(mainFragment, false);
+                    //    mainFragment.setTVPoints("0");
+                      //  mainFragment.setTVLevel("1");
+                        lastView.setBackgroundColor(mainActivity.getResources().getColor(R.color.list_background));
                     }
                 })
                         //If they clicked by mistake...
@@ -403,7 +418,7 @@ public class Controller {
     public void swapUserClicked(int position) {
         user = users.get(position);
         swapFragment(mainFragment, false);
-       toastShort( user + " " +  mainActivity.getResources().getString(R.string.isNowUser));
+       toastShort(user + " " + mainActivity.getResources().getString(R.string.isNowUser));
         if(lastView != null)
             lastView.setBackgroundColor(mainActivity.getResources().getColor(R.color.list_background));
     }

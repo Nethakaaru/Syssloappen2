@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,8 +46,9 @@ public class MainActivity extends ActionBarActivity {
         controller = new Controller(this);
 
         //Check if bluetooth is available and enabled
-        hasBluetoothSupport();
-        ensureBluetoothEnabled();
+        if(hasBluetoothSupport()) {
+            ensureBluetoothEnabled();
+        }
 
         //find components.
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -103,13 +105,13 @@ public class MainActivity extends ActionBarActivity {
                 .setTitle(R.string.exitApp)
                 .setMessage(R.string.exitAppConfirm)
                         //if yes, close the app.
-                .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         MainActivity.super.onBackPressed();
                     }
                 })
                         //if no...
-                .setNegativeButton("Nej", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // Do nothing
                     }
@@ -129,6 +131,7 @@ public class MainActivity extends ActionBarActivity {
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         } else {
             //	Bluetooth	är	redan	aktiverat,	genomför	uppkoppling
+            connectToBluetoothDevice(mac);
         }
     }
 
@@ -234,19 +237,23 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    private synchronized void stop()	{
-        if (connectThread !=	null)	{
+    private synchronized void stop() {
+        if (connectThread != null) {
             connectThread.cancel();
             connectThread =	null;
         }
-        if (connectedThread !=	null)	{
+        if (connectedThread != null) {
             connectedThread.cancel();
-            connectedThread =	null;
+            connectedThread = null;
         }
     }
 
     public void sendMessage(byte[] message) {
-        connectedThread.write(message);
+        if(connectedThread != null) {
+            connectedThread.write(message);
+        } else {
+            Toast.makeText(this, "BT är inte connectad", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }
