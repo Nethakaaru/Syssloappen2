@@ -245,6 +245,8 @@ public class Controller {
             dbController.close();
         }else
           toastShort(mainActivity.getResources().getString(R.string.pickUser));
+        mainFragment.setTVPoints("0/500");
+        mainFragment.setTVLevel("0");
     }
 
     /**
@@ -372,11 +374,30 @@ public class Controller {
     }
 
     public void deleteUserClicked(int position) {
-        dbController.open();
-        dbController.deleteUser(users.get(position));
-        dbController.close();
-        users.remove(position);
-        user = null;
+        final int pos=position;
+        new AlertDialog.Builder(mainActivity)
+                .setTitle(mainActivity.getResources().getString(R.string.clearHistory))
+                .setMessage(mainActivity.getResources().getString(R.string.deleteUserConfirm)+ " " + users.get(pos) + "?")
+                        //If they say yes...
+                .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Delete all the completed chores.
+                        dbController.open();
+                        dbController.deleteUser(users.get(pos));
+                        dbController.close();
+                        users.remove(pos);
+                        user = null;
+                    }
+                })
+                        //If they clicked by mistake...
+                .setNegativeButton("Nej", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Do nothing
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+
     }
 
     public void swapUserClicked(int position) {

@@ -42,6 +42,7 @@
     <string name="pageAddUser">Lägg till användare</string>
     <string name="pageRemoveUser">Ta bort användare</string>
     <string name="pageSwapUser">Byt användare</string>
+    <string name="deleteUserConfirm">Är du säker på att du vill ta bort</string>
 
 
 </resources>
