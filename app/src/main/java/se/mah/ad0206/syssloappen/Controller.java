@@ -145,7 +145,7 @@ public class Controller {
         if( c.moveToFirst() ) {
             do {
                 //Add everything neatly to an arrayList.
-                history.add(c.getString(0) + "\nPoäng: " + c.getString(1) + "\nDatum: " + c.getString(2));
+                history.add(c.getString(3) + "\n" + c.getString(0) + "\nPoäng: " + c.getString(1) + "\nDatum: " + c.getString(2));
             }while(c.moveToNext());
         }
         c.close();
@@ -238,7 +238,7 @@ public class Controller {
         editor.apply();
         //Save the chore that was done to the users history.
         dbController.open();
-        dbController.saveHistory(this.chores.get(position), this.points.get(position), getDate());
+        dbController.saveHistory(this.chores.get(position), this.points.get(position), getDate(), user);
         dbController.close();
     }
 

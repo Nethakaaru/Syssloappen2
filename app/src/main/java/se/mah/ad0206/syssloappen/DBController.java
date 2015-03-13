@@ -76,11 +76,12 @@ public class DBController extends SQLiteOpenHelper {
      * @param date
      *              the date it was completed upon.
      */
-    public void saveHistory(String chore, String points, String date){
+    public void saveHistory(String chore, String points, String date, String user){
         ContentValues values = new ContentValues();
         values.put("chore",chore);
         values.put("points",points);
         values.put("date",date);
+        values.put("user",user);
 
         database.insert("history", null, values);
     }
@@ -96,7 +97,7 @@ public class DBController extends SQLiteOpenHelper {
      *          A cursor with all completed chores.
      */
     public Cursor getHistory(){
-        return database.rawQuery("SELECT chore, points, date from history", new String[]{});
+        return database.rawQuery("SELECT chore, points, date, user from history", new String[]{});
     }
 
     public Cursor getUsers(){
@@ -126,7 +127,7 @@ public class DBController extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL("CREATE table chores ( chore VARCHAR(255), points VARCHAR(5));");
-        db.execSQL("CREATE table history (chore VARCHAR(255), points VARCHAR(5), date VARCHAR(20));");
+        db.execSQL("CREATE table history (chore VARCHAR(255), points VARCHAR(5), date VARCHAR(20), user VARCHAR(100));");
         db.execSQL("CREATE table users ( user VARCHAR(100));");
     }
 
