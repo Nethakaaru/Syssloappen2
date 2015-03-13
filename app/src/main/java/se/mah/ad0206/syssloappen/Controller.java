@@ -84,6 +84,7 @@ public class Controller {
         deleteChoreFragment.setAdapter(new ChoreListAdapter(mainActivity, chores, points));
         historyFragment.setAdapter(new ArrayAdapter<>(mainActivity,android.R.layout.simple_list_item_1, history));
         deleteUserFragment.setAdapter(new ArrayAdapter<>(mainActivity,android.R.layout.simple_list_item_1,users));
+        swapUserFragment.setAdapter(new ArrayAdapter<>(mainActivity,android.R.layout.simple_list_item_1,users));
     }
 
     /**
@@ -371,6 +372,10 @@ public class Controller {
     }
 
     public void swapUserClicked(int position) {
-        user=users.get(position);
+        user = users.get(position);
+        swapFragment(mainFragment, false);
+        Toast.makeText(mainActivity, user + " är nu aktiv användare", Toast.LENGTH_SHORT).show();
+        if(lastView != null)
+            lastView.setBackgroundColor(mainActivity.getResources().getColor(R.color.list_background));
     }
 }
