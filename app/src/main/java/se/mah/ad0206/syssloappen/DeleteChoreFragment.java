@@ -47,7 +47,7 @@ public class DeleteChoreFragment extends Fragment {
                 controller.LVDeleteChoresClicked(position);
                 adapter.notifyDataSetChanged();
                 //notify the user the chore was removed.
-                controller.toastShort("Syssla borttagen");
+                controller.toastShort(getResources().getString(R.string.choreDeleted));
             }
         });
 

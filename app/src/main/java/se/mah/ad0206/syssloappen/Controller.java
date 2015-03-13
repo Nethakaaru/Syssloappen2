@@ -243,7 +243,7 @@ public class Controller {
             dbController.saveHistory(this.chores.get(position), this.points.get(position), getDate(), user);
             dbController.close();
         }else
-          toastShort("Välj en användare");
+          toastShort(mainActivity.getResources().getString(R.string.pickUser));
     }
 
     /**
@@ -366,7 +366,7 @@ public class Controller {
         dbController.saveUser(user);
         dbController.close();
         this.user=user;
-      toastShort(user+ "är nu användaren");
+      toastShort(user + " " + mainActivity.getResources().getString(R.string.isNowUser));
     }
 
     public void deleteUserClicked(int position) {
@@ -379,7 +379,7 @@ public class Controller {
     public void swapUserClicked(int position) {
         user = users.get(position);
         swapFragment(mainFragment, false);
-       toastShort( user + " är nu aktiv användare");
+       toastShort( user + " " +  mainActivity.getResources().getString(R.string.isNowUser));
         if(lastView != null)
             lastView.setBackgroundColor(mainActivity.getResources().getColor(R.color.list_background));
     }

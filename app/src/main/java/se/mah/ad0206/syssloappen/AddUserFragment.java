@@ -27,7 +27,7 @@ public class AddUserFragment extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_add_user, container, false);
         findComponents(view);
-        initListener(view);
+        initListener();
         return view;
     }
 
@@ -36,16 +36,16 @@ public class AddUserFragment extends Fragment {
         btnAddUser=(Button)view.findViewById(R.id.btnAddUser);
     }
 
-    private void initListener(View view) {
+    private void initListener() {
         btnAddUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!etAddUser.getText().toString().equals("")) {
                     controller.btnAddUserClicked(etAddUser.getText().toString());
                     etAddUser.setText("");
-                   controller.toastShort("Användare tillagd");
+                   controller.toastShort(getResources().getString(R.string.userAdded));
                 }else{
-                    controller.toastShort("Skriv in ett namn");
+                    controller.toastShort(getResources().getString(R.string.nameRequired));
                 }
             }
         });

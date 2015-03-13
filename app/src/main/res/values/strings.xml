@@ -31,6 +31,12 @@
     <string name="drawerClose">The drawer closed</string>
     <string name="exitApp">Exit the application</string>
     <string name="exitAppConfirm">Are you sure you want to close the chore app?</string>
+    <string name="userAdded">User added</string>
+    <string name="nameRequired">Write a name</string>
+    <string name="choreDeleted">Chore deleted</string>
+    <string name="pickUser">Select a user</string>
+    <string name="isNowUser">is now the user</string>
+
 
 
 

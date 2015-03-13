@@ -30,6 +30,11 @@
     <string name="drawerClose">menyn stängdes</string>
     <string name="exitApp">Avsluta applikationen</string>
     <string name="exitAppConfirm">Är du säker på att du vill avsluta Syssloappen?</string>
+    <string name="userAdded">Användare tillagd</string>
+    <string name="nameRequired">Skriv in ett namn</string>
+    <string name="choreDeleted">Syssla borttagen</string>
+    <string name="pickUser">Välj en användare</string>
+    <string name="isNowUser">är nu användaren</string>
     
 
 
