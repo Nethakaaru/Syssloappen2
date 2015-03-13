@@ -36,6 +36,13 @@
     <string name="choreDeleted">Chore deleted</string>
     <string name="pickUser">Select a user</string>
     <string name="isNowUser">is now the user</string>
+    <string name="pageMain">Home</string>
+    <string name="pageAddChore">Add new chore</string>
+    <string name="pageRemoveChore">Remove chores</string>
+    <string name="pageHistory">History</string>
+    <string name="pageAddUser">Add users</string>
+    <string name="pageRemoveUser">Remove users</string>
+    <string name="pageSwapUser">Swap user</string>
 
 
 

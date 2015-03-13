@@ -35,7 +35,13 @@
     <string name="choreDeleted">Syssla borttagen</string>
     <string name="pickUser">Välj en användare</string>
     <string name="isNowUser">är nu användaren</string>
-    
+    <string name="pageMain">Huvudsidan</string>
+    <string name="pageAddChore">Lägg till syssla</string>
+    <string name="pageRemoveChore">Ta bort sysslor</string>
+    <string name="pageHistory">Historik</string>
+    <string name="pageAddUser">Lägg till användare</string>
+    <string name="pageRemoveUser">Ta bort användare</string>
+    <string name="pageSwapUser">Byt användare</string>
 
 
 </resources>
