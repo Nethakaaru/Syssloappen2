@@ -287,7 +287,7 @@ public class Controller {
     public void btnClearHistoryClicked() {
         //Is the user sure or did they click by mistake?
         new AlertDialog.Builder(mainActivity)
-                .setTitle(mainActivity.getResources().getString(R.string.clearHistory))
+                .setTitle(mainActivity.getResources().getString(R.string.pageRemoveUser))
                 .setMessage(mainActivity.getResources().getString(R.string.deleteHistoryConfirm))
                 //If they say yes...
                 .setPositiveButton(mainActivity.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
