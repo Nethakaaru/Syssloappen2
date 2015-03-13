@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 public class SwapUserFragment extends Fragment {
 
 
+    private Controller controller;
+
     public SwapUserFragment() {
         // Required empty public constructor
     }
@@ -27,4 +29,7 @@ public class SwapUserFragment extends Fragment {
     }
 
 
+    public void setController(Controller controller) {
+        this.controller = controller;
+    }
 }

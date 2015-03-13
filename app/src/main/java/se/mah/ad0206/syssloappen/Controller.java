@@ -28,10 +28,15 @@ public class Controller {
     private AddChoresFragment addChoresFragment;
     private HistoryFragment historyFragment;
     private DeleteChoreFragment deleteChoreFragment;
+    private AddUserFragment addUserFragment;
+    private DeleteUserFragment deleteUserFragment;
+    private SwapUserFragment swapUserFragment;
     private DBController dbController;
+    private String user;
     private ArrayList<String> chores = new ArrayList<>();
     private ArrayList<String> points = new ArrayList<>();
     private ArrayList<String> history = new ArrayList<>();
+    private ArrayList<String> users = new ArrayList<>();
     private View lastView = null;
     private SharedPreferences preferences;
 
@@ -54,6 +59,12 @@ public class Controller {
         deleteChoreFragment = new DeleteChoreFragment();
         deleteChoreFragment.setController(this);
         dbController = new DBController(mainActivity);
+        addUserFragment = new AddUserFragment();
+        addUserFragment.setController(this);
+        deleteUserFragment = new DeleteUserFragment();
+        deleteUserFragment.setController(this);
+        swapUserFragment = new SwapUserFragment();
+        swapUserFragment.setController(this);
 
         //If it is the users first time we show them the instructions.
         if(isFirstTime()){
@@ -67,6 +78,7 @@ public class Controller {
         }
         //load data and use it to set adapters for the lists.
         getChoresAndPoints();
+
         mainFragment.setAdapter(new ChoreListAdapter(mainActivity, chores, points));
         deleteChoreFragment.setAdapter(new ChoreListAdapter(mainActivity, chores, points));
         historyFragment.setAdapter(new ArrayAdapter<>(mainActivity,android.R.layout.simple_list_item_1, history));
@@ -108,7 +120,19 @@ public class Controller {
         //Note the exclamation mark.
         return !preferences.contains("firstTime");
     }
+    public void loadUsers(){
+        users.clear();
+        dbController.open();
+        Cursor c = dbController.getUsers();
+        if( c.moveToFirst() ){
+            do{
+                users.add(c.getString(0));
 
+            }while(c.moveToNext());
+        }
+        c.close();
+        dbController.close();
+    }
     /**
      * Method to prepare the users history. Load att the data saved in the history table.
      */
@@ -190,8 +214,8 @@ public class Controller {
      */
     public void LVChoresClicked(int position) {
         //get the users current points and lvl.
-        String points = preferences.getString("points", "0");
-        String lvl = preferences.getString("level", "1");
+        String points = preferences.getString(user+"points", "0");
+        String lvl = preferences.getString(user+"level", "1");
         //get points awarded for the chore clicked and add it to the users points.
         String chorePoints = this.points.get(position);
         int newPoints = (Integer.parseInt(points) + Integer.parseInt(chorePoints));
@@ -207,8 +231,8 @@ public class Controller {
         mainFragment.setTVLevel(lvl);
         //Save the new points and lvl the user has.
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("points", String.valueOf(newPoints));
-        editor.putString("level", lvl);
+        editor.putString(user+"points", String.valueOf(newPoints));
+        editor.putString(user+"level", lvl);
         editor.apply();
         //Save the chore that was done to the users history.
         dbController.open();
@@ -227,8 +251,8 @@ public class Controller {
      * Get the stored points and level and present them visually to the user.
      */
     public void setPointsAndLevel() {
-        String points = preferences.getString("points", "0");
-        String lvl = preferences.getString("level", "1");
+        String points = preferences.getString(user+"points", "0");
+        String lvl = preferences.getString(user+"level", "1");
         mainFragment.setTVPoints(points);
         mainFragment.setTVLevel(lvl);
     }
@@ -283,7 +307,7 @@ public class Controller {
      * @param position
      *                  where in the list the user clicked.
      * @param view
-     *                  which view the user clied on.
+     *                  which view the user clicked on.
      */
     public void drawerItemClicked(int position, View view) {
         Fragment fragment = null;
@@ -306,6 +330,16 @@ public class Controller {
                 fragment = historyFragment;
                 prepHistoryFragment();
                 break;
+            case 4:
+                fragment = addUserFragment;
+                loadUsers();
+                break;
+            case 5:
+                fragment = deleteUserFragment;
+                break;
+            case 6:
+                fragment = swapUserFragment;
+                break;
 
             default:
                 break;
@@ -320,4 +354,14 @@ public class Controller {
         }
     }
 
+    public void btnAddUserClicked(String user) {
+        dbController.open();
+        if(!users.contains(user))
+        dbController.saveUser(user);
+        dbController.close();
+    }
+
+    public void deleteUserClicked(int position) {
+
+    }
 }

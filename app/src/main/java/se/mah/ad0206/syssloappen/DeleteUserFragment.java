@@ -6,12 +6,19 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class DeleteUserFragment extends Fragment {
+    private ListView lvDeleteUsers;
+    private ListAdapter adapter;
+    private Controller controller;
+
 
 
     public DeleteUserFragment() {
@@ -23,8 +30,22 @@ public class DeleteUserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_delete_user, container, false);
+        View view = inflater.inflate(R.layout.fragment_delete_user, container, false);
+        lvDeleteUsers=(ListView)view.findViewById(R.id.LVDeleteUser);
+        lvDeleteUsers.setAdapter(adapter);
+        lvDeleteUsers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                controller.deleteUserClicked(position);
+            }
+        });
+        return view;
     }
-
+public void setAdapter(ListAdapter adapter){
+    this.adapter=adapter;
+}
+    public void setController(Controller controller) {
+        this.controller = controller;
+    }
 
 }

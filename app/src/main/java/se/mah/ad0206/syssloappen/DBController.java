@@ -84,6 +84,11 @@ public class DBController extends SQLiteOpenHelper {
 
         database.insert("history", null, values);
     }
+    public void saveUser(String user){
+        ContentValues values = new ContentValues();
+        values.put("user",user);
+        database.insert("users", null, values);
+    }
 
     /**
      * A method to get the completed chores.
@@ -92,6 +97,10 @@ public class DBController extends SQLiteOpenHelper {
      */
     public Cursor getHistory(){
         return database.rawQuery("SELECT chore, points, date from history", new String[]{});
+    }
+
+    public Cursor getUsers(){
+        return database.rawQuery("SELECT user from users", new String[]{});
     }
 
     /**
@@ -115,7 +124,9 @@ public class DBController extends SQLiteOpenHelper {
 
         db.execSQL("CREATE table chores ( chore VARCHAR(255), points VARCHAR(5));");
         db.execSQL("CREATE table history (chore VARCHAR(255), points VARCHAR(5), date VARCHAR(20));");
+        db.execSQL("CREATE table users ( user VARCHAR(100));");
     }
+
 
     /**
      * Unused inherited method.

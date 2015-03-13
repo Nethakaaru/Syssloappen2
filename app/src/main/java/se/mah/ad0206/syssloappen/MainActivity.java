@@ -40,7 +40,7 @@ public class MainActivity extends ActionBarActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
         //The text in the manu.
-        String[] pages = new String[]{"Huvudsidan", "Lägg till syssla", "Ta bort syssla", "Historik"};
+        String[] pages = new String[]{"Huvudsidan", "Lägg till syssla", "Ta bort syssla", "Historik", "Lägg till användare", "Ta bort användare","Byt användare" };
         DrawerAdapter drawerAdapter = new DrawerAdapter(this, pages);
         mDrawerList.setAdapter(drawerAdapter);
         //If it is clicked...
