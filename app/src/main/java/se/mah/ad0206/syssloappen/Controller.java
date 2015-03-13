@@ -145,7 +145,7 @@ public class Controller {
         history.clear();
         if( c.moveToFirst() ) {
             do {
-                //Add everything neatly to an arrayList.
+                //Add user, the chore, points and the date neatly to an arrayList.
                 history.add(c.getString(3) + "\n" + c.getString(0) + "\nPoäng: " + c.getString(1) + "\nDatum: " + c.getString(2));
             }while(c.moveToNext());
         }
