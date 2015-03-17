@@ -249,6 +249,7 @@ public class MainActivity extends ActionBarActivity {
             connectedThread.write(message);
         } else {
             Toast.makeText(this, getResources().getString(R.string.toastBTError), Toast.LENGTH_SHORT).show();
+            controller.addMissedReward();
         }
     }
 

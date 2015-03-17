@@ -50,7 +50,7 @@
     <string name="hintName">Skriv namn här...</string>
     <string name="btnAddUserText">Godkänn</string>
     <string name="tvDeleteUserText">Klicka på en användare i listan nedan för att ta bort den</string>
-    <string name="tvMainText">Klicka på en syssla i listan nedan när sysslan är klar för att få poäng för den</string>
+    <string name="tvMainText">Klicka på en syssla i listan nedan när sysslan är klar för att få poäng för den. Om du inte har lagt till några sysslor än, så kan du göra det i menyn åt vänster</string>
     <string name="tvLoggedInUser">Inloggad som:</string>
     <string name="toastBTError">Bluetooth är inte ansluten</string>
 

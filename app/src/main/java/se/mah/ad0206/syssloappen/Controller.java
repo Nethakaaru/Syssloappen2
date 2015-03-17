@@ -206,7 +206,7 @@ public class Controller {
      */
     public void btnAddChoreClicked(String chore, String points) {
         insertIntoDB(chore, points);
-       toastShort(mainActivity.getResources().getString(R.string.choreAdded));
+        toastShort(mainActivity.getResources().getString(R.string.choreAdded));
 
     }
 
@@ -291,7 +291,7 @@ public class Controller {
         new AlertDialog.Builder(mainActivity)
                 .setTitle(mainActivity.getResources().getString(R.string.clearHistory))
                 .setMessage(mainActivity.getResources().getString(R.string.deleteHistoryConfirm))
-                //If they say yes...
+                        //If they say yes...
                 .setPositiveButton(mainActivity.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         //Delete all the completed chores.
@@ -304,7 +304,7 @@ public class Controller {
                         lastView.setBackgroundColor(mainActivity.getResources().getColor(R.color.list_background));
                     }
                 })
-                //If they clicked by mistake...
+                        //If they clicked by mistake...
                 .setNegativeButton(mainActivity.getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // Do nothing
@@ -372,7 +372,7 @@ public class Controller {
             dbController.open();
             dbController.saveUser(user);
             dbController.close();
-            this.user=user;
+            this.user = user;
             toastShort(user + " " + mainActivity.getResources().getString(R.string.isNowUser));
             loadUsers();
         }else
@@ -417,13 +417,28 @@ public class Controller {
     public void swapUserClicked(int position) {
         user = users.get(position);
         swapFragment(mainFragment, false);
-       toastShort(user + " " + mainActivity.getResources().getString(R.string.isNowUser));
+        toastShort(user + " " + mainActivity.getResources().getString(R.string.isNowUser));
         if(lastView != null)
             lastView.setBackgroundColor(mainActivity.getResources().getColor(R.color.list_background));
+
+        String missedReward = preferences.getString(user + "missedReward", "0");
+        if((Integer.parseInt(missedReward)) > 0) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString(user + "missedReward", String.valueOf(Integer.parseInt(missedReward) - 1));
+            editor.apply();
+            messageArduino();
+        }
+
     }
 
     public void toastShort(String text){
         Toast.makeText(mainActivity, text, Toast.LENGTH_SHORT).show();
     }
 
+    public void addMissedReward() {
+        String oldReward = preferences.getString(user + "missedReward", "0");
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(user + "missedReward", String.valueOf(Integer.parseInt(oldReward) + 1));
+        editor.apply();
+    }
 }

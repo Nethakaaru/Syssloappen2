@@ -51,7 +51,7 @@
     <string name="hintName">Enter name here...</string>
     <string name="btnAddUserText">Confirm</string>
     <string name="tvDeleteUserText">Click on a user in the list below to remove it</string>
-    <string name="tvMainText">Click on a chore in the list below when the chore is done to get points for it</string>
+    <string name="tvMainText">Click on a chore in the list below when the chore is done to get points for it. If you haven\'t added any chores yet, you can do that in the menu to the left</string>
     <string name="tvLoggedInUser">Logged in as:</string>
     <string name="toastBTError">Bluetooth is not connected</string>
 
