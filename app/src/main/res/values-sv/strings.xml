@@ -41,10 +41,17 @@
     <string name="pageHistory">Historik</string>
     <string name="pageAddUser">Lägg till användare</string>
     <string name="pageRemoveUser">Ta bort användare</string>
-    <string name="pageSwapUser">Byt användare</string>
+    <string name="pageSwapUser">Välj användare</string>
     <string name="deleteUserConfirm">Är du säker på att du vill ta bort</string>
     <string name="yes">Ja</string>
     <string name="no">Nej</string>
-
+    <string name="tvChooseUserText">Välj en användare i listan nedan. Om du inte har skapat en användare än, så kan du göra det i menyn åt vänster</string>
+    <string name="tvAddChoreText">Skriv namnet på sysslan och välj hur många poäng sysslan ska vara värd</string>
+    <string name="hintName">Skriv namn här...</string>
+    <string name="btnAddUserText">Godkänn</string>
+    <string name="tvDeleteUserText">Klicka på en användare i listan nedan för att ta bort den</string>
+    <string name="tvMainText">Klicka på en syssla i listan nedan när sysslan är klar för att få poäng för den</string>
+    <string name="tvLoggedInUser">Inloggad som:</string>
+    <string name="toastBTError">Bluetooth är inte ansluten</string>
 
 </resources>

@@ -10,6 +10,7 @@
         android:id="@+id/TVWelcome"
         android:text="@string/welcome"
         android:textSize="26sp"
+        android:gravity="center"
         android:paddingBottom="80dp"
         android:layout_gravity="top"
         />

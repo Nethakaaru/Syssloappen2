@@ -266,6 +266,7 @@ public class Controller {
         String lvl = preferences.getString(user+"level", "1");
         mainFragment.setTVPoints(points);
         mainFragment.setTVLevel(lvl);
+        mainFragment.setTVUser(user);
     }
 
     /**

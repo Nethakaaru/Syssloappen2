@@ -19,7 +19,7 @@ public class MainFragment extends Fragment {
 
     private Controller controller;
 
-    private TextView TVPoints, TVLevel;
+    private TextView TVPoints, TVLevel, TVUser;
     private ListView LVChores;
     private ChoreListAdapter adapter;
 
@@ -72,6 +72,7 @@ public class MainFragment extends Fragment {
     private void findComponents(View view) {
         TVPoints = (TextView)view.findViewById(R.id.TVPoints);
         TVLevel = (TextView)view.findViewById(R.id.TVLevel);
+        TVUser = (TextView)view.findViewById(R.id.tvLoggedInUser);
         LVChores = (ListView)view.findViewById(R.id.LVChores);
     }
 
@@ -120,5 +121,9 @@ public class MainFragment extends Fragment {
      */
     public void setTVLevel(String text) {
         TVLevel.setText(getResources().getString(R.string.level) + " " + text);
+    }
+
+    public void setTVUser(String user) {
+        TVUser.setText(user);
     }
 }

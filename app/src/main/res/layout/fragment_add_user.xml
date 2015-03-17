@@ -3,31 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
     android:orientation="vertical"
     tools:context="se.mah.ad0206.syssloappen.AddUserFragment">
 
 
     <TextView android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:gravity="center"
-        android:text="Lägg till användare"
+        android:text="@string/pageAddUser"
         android:paddingBottom="20sp"/>
 
     <EditText android:inputType="textCapSentences"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:hint="Skriv namnet här..."
-        android:id="@+id/ETAddUser"
-        >
+        android:maxLength="30"
+        android:hint="@string/hintName"
+        android:id="@+id/ETAddUser">
     </EditText>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Godkänn"
+        android:text="@string/btnAddUserText"
         android:layout_gravity="center_horizontal"
         android:id="@+id/btnAddUser"
         />

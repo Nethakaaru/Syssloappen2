@@ -248,7 +248,7 @@ public class MainActivity extends ActionBarActivity {
         if(connectedThread != null) {
             connectedThread.write(message);
         } else {
-            Toast.makeText(this, "BT är inte connectad", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.toastBTError), Toast.LENGTH_SHORT).show();
         }
     }
 
