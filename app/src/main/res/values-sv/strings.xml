@@ -54,5 +54,8 @@
     <string name="tvLoggedInUser">Inloggad som:</string>
     <string name="toastBTError">Bluetooth är inte ansluten</string>
     <string name="toastUserExists">Användaren finns redan</string>
+    <string name="alertLevelUpTitle">Grattis!</string>
+    <string name="alertLevelUpText">Du har nått nästa nivå! Ta ditt godis!</string>
+    <string name="alertLevelUpButton">OK</string>
 
 </resources>

@@ -55,6 +55,9 @@
     <string name="tvLoggedInUser">Logged in as:</string>
     <string name="toastBTError">Bluetooth is not connected</string>
     <string name="toastUserExists">That user already exists</string>
+    <string name="alertLevelUpTitle">Congratulations!</string>
+    <string name="alertLevelUpText">You have gained a level! Grab your candy!</string>
+    <string name="alertLevelUpButton">OK</string>
 
 
 </resources>

@@ -237,7 +237,7 @@ public class Controller {
                 newPoints = newPoints - 500;
                 lvl = String.valueOf(Integer.parseInt(lvl) + 1);
                 //And Arduino is messaged to reward the user.
-                messageArduino();
+                messageArduino(true);
             }
 
             //Show the user their points have increased.
@@ -264,9 +264,23 @@ public class Controller {
     /**
      * A method that messages Arduino to move when the user levels up.
      */
-    private void messageArduino() {
+    private void messageArduino(boolean isLevelUp) {
         mainActivity.sendMessage(toggle ? "H".getBytes() : "L".getBytes());
         toggle = !toggle;
+
+        if(isLevelUp) {
+            new AlertDialog.Builder(mainActivity)
+                    .setTitle(mainActivity.getResources().getString(R.string.alertLevelUpTitle))
+                    .setMessage(mainActivity.getResources().getString(R.string.alertLevelUpText))
+                            //If they say yes...
+                    .setNeutralButton(mainActivity.getResources().getString(R.string.alertLevelUpButton), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Do nothing
+                        }
+                    })
+                    .setIcon(R.mipmap.mushroom)
+                    .show();
+        }
     }
 
     /**
@@ -455,7 +469,7 @@ public class Controller {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString(user + "missedReward", String.valueOf(Integer.parseInt(missedReward) - 1));
             editor.apply();
-            messageArduino();
+            messageArduino(false);
         }
     }
 
