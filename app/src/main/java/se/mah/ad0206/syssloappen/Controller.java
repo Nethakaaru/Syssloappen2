@@ -19,7 +19,8 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * Created by Sebastian Aspegren on 2015-03-04.
+ * Controller-class that handles all the logic in the application.
+ * Created by Sebastian Aspegren on 2015-03-04. Edited by Jonas Dahlström.
  *
  */
 public class Controller {
@@ -74,7 +75,7 @@ public class Controller {
             WelcomeFragment welcomeFragment = new WelcomeFragment();
             welcomeFragment.setController(this);
             swapFragment(welcomeFragment, false);
-        }else {
+        } else {
             //swap to the main fragment.
             swapFragment(swapUserFragment, false);
         }
@@ -112,7 +113,7 @@ public class Controller {
      *          today's date as a string.
      */
     public String getDate(){
-        return new SimpleDateFormat("dd-MM-yyyy",Locale.getDefault()).format(new Date());
+        return new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
     }
 
     /**
@@ -124,6 +125,10 @@ public class Controller {
         //Note the exclamation mark.
         return !preferences.contains("firstTime");
     }
+
+    /**
+     * Get all the users from the database and add them to the arraylist.
+     */
     public void loadUsers(){
         users.clear();
         dbController.open();
@@ -137,8 +142,9 @@ public class Controller {
         c.close();
         dbController.close();
     }
+
     /**
-     * Method to prepare the users history. Load att the data saved in the history table.
+     * Method to prepare the users history. Load all the data saved in the history table.
      */
     public void prepHistoryFragment(){
         dbController.open();
@@ -153,6 +159,7 @@ public class Controller {
         c.close();
         dbController.close();
     }
+
     /**
      * If the user clicks on this button they'll never have to see the current screen again.
      * We also swap to the main screen.
@@ -207,7 +214,6 @@ public class Controller {
     public void btnAddChoreClicked(String chore, String points) {
         insertIntoDB(chore, points);
         toastShort(mainActivity.getResources().getString(R.string.choreAdded));
-
     }
 
     /**
@@ -217,13 +223,15 @@ public class Controller {
      *                  where in the list the user clicked.
      */
     public void LVChoresClicked(int position) {
-        if(user!=null) {
+        if(user != null) {
             //get the users current points and lvl.
             String points = preferences.getString(user + "points", "0");
             String lvl = preferences.getString(user + "level", "1");
+
             //get points awarded for the chore clicked and add it to the users points.
             String chorePoints = this.points.get(position);
             int newPoints = (Integer.parseInt(points) + Integer.parseInt(chorePoints));
+
             //if it exceeds 500 the user levels up.
             if (newPoints >= 500) {
                 newPoints = newPoints - 500;
@@ -231,19 +239,22 @@ public class Controller {
                 //And Arduino is messaged to reward the user.
                 messageArduino();
             }
+
             //Show the user their points have increased.
             mainFragment.setTVPoints(newPoints + "");
             mainFragment.setTVLevel(lvl);
+
             //Save the new points and lvl the user has.
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString(user + "points", String.valueOf(newPoints));
             editor.putString(user + "level", lvl);
             editor.apply();
+
             //Save the chore that was done to the users history.
             dbController.open();
             dbController.saveHistory(this.chores.get(position), this.points.get(position), getDate(), user);
             dbController.close();
-        }else {
+        } else {
             toastShort(mainActivity.getResources().getString(R.string.pickUser));
             mainFragment.setTVPoints("0");
             mainFragment.setTVLevel("1");
@@ -356,6 +367,7 @@ public class Controller {
             default:
                 break;
         }
+
         //set the color of the clicked one to red.
         view.setBackgroundColor(mainActivity.getResources().getColor(R.color.list_background_pressed));
         lastView = view;
@@ -366,6 +378,11 @@ public class Controller {
         }
     }
 
+    /**
+     * Method that saves the new user in database.
+     * @param user
+     *      The name that the user have entered.
+     */
     public void btnAddUserClicked(String user) {
 
         if(!users.contains(user)){
@@ -375,13 +392,19 @@ public class Controller {
             this.user = user;
             toastShort(user + " " + mainActivity.getResources().getString(R.string.isNowUser));
             loadUsers();
-        }else
-            toastShort("Användaren finns redan.");
-
+        } else {
+            toastShort(mainActivity.getResources().getString(R.string.toastUserExists));
+        }
     }
 
+    /**
+     * Method that removes a user. When the user clicks on a user to delete, an alertdialog appears
+     * to make sure the user clicked it on purpose
+     * @param position
+     *      The position in the list the user clicked.
+     */
     public void deleteUserClicked(int position) {
-        final int pos=position;
+        final int pos = position;
         new AlertDialog.Builder(mainActivity)
                 .setTitle(mainActivity.getResources().getString(R.string.pageRemoveUser))
                 .setMessage(mainActivity.getResources().getString(R.string.deleteUserConfirm)+ " " + users.get(pos) + "?")
@@ -414,10 +437,16 @@ public class Controller {
 
     }
 
+    /**
+     * Method that swap the current user to the one selected.
+     * @param position
+     *      The position in the list the user clicked.
+     */
     public void swapUserClicked(int position) {
         user = users.get(position);
         swapFragment(mainFragment, false);
         toastShort(user + " " + mainActivity.getResources().getString(R.string.isNowUser));
+
         if(lastView != null)
             lastView.setBackgroundColor(mainActivity.getResources().getColor(R.color.list_background));
 
@@ -428,17 +457,26 @@ public class Controller {
             editor.apply();
             messageArduino();
         }
-
     }
 
+    /**
+     * Simple method that shows a toast with the text in parameter.
+     * @param text
+     *      The text to show in the toast.
+     */
     public void toastShort(String text){
         Toast.makeText(mainActivity, text, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Method that add a missed reward when the bluetooth connection isn't working.
+     * Thanks to this, a user never looses a reward.
+     */
     public void addMissedReward() {
         String oldReward = preferences.getString(user + "missedReward", "0");
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(user + "missedReward", String.valueOf(Integer.parseInt(oldReward) + 1));
         editor.apply();
     }
+
 }

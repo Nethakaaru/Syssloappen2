@@ -12,10 +12,10 @@ import android.widget.ListView;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * A fragment used to swap user.
+ * @author Sebastian Aspegren, Jonas Dahlström.
  */
 public class SwapUserFragment extends Fragment {
-
 
     private Controller controller;
     private ArrayAdapter adapter;
@@ -24,7 +24,17 @@ public class SwapUserFragment extends Fragment {
         // Required empty public constructor
     }
 
-
+    /**
+     * OnCreateView method so the fragment actually works.
+     * @param inflater
+     *      Inflater so we can inflate the fragment.
+     * @param container
+     *      ViewGroup for the inflation.
+     * @param savedInstanceState
+     *      Bundle for the inflation.
+     * @return
+     *      the inflated view.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,16 +51,30 @@ public class SwapUserFragment extends Fragment {
         return view;
     }
 
+    /**
+     * onResume method that load all users.
+     */
     public void onResume() {
         super.onResume();
         controller.loadUsers();
     }
 
+    /**
+     * A normal set controller method.
+     * @param controller
+     *                  a reference to the controller.
+     */
     public void setController(Controller controller) {
         this.controller = controller;
     }
 
+    /**
+     * A method to set te adapter for the list.
+     * @param adapter
+     *              the adapter. a simple list containing the users.
+     */
     public void setAdapter(ArrayAdapter adapter){
-        this.adapter=adapter;
+        this.adapter = adapter;
     }
+
 }

@@ -12,19 +12,29 @@ import android.widget.ListView;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * A fragment used to delete users.
+ * @author Sebastian Aspegren, Jonas Dahlström.
  */
 public class DeleteUserFragment extends Fragment {
+
     private ArrayAdapter adapter;
     private Controller controller;
-
-
 
     public DeleteUserFragment() {
         // Required empty public constructor
     }
 
-
+    /**
+     * OnCreateView method so the fragment actually works.
+     * @param inflater
+     *      Inflater so we can inflate the fragment.
+     * @param container
+     *      ViewGroup for the inflation.
+     * @param savedInstanceState
+     *      Bundle for the inflation.
+     * @return
+     *      the inflated view.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,16 +55,29 @@ public class DeleteUserFragment extends Fragment {
         return view;
     }
 
+    /**
+     * onResume method that load all users.
+     */
     @Override
     public void onResume() {
         super.onResume();
         controller.loadUsers();
     }
 
+    /**
+     * A method to set the adapter for the list.
+     * @param adapter
+     *              the lists adapter.
+     */
     public void setAdapter(ArrayAdapter adapter){
-        this.adapter=adapter;
+        this.adapter = adapter;
     }
 
+    /**
+     * A normal set controller method.
+     * @param controller
+     *                  a reference to the controller.
+     */
     public void setController(Controller controller) {
         this.controller = controller;
     }

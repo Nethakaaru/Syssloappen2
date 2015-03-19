@@ -19,8 +19,6 @@ import android.widget.Spinner;
  */
 public class AddChoresFragment extends Fragment {
 
-
-
     private Spinner spinnerPoints;
     private EditText etChoreName;
     private Controller controller;
@@ -32,13 +30,13 @@ public class AddChoresFragment extends Fragment {
     /**
      * OnCreateView method so the fragment actually works.
      * @param inflater
-     *                  Inflater so we can inflate the fragment.
+     *      Inflater so we can inflate the fragment.
      * @param container
-     *                  ViewGroup  for the inflation.
+     *      ViewGroup for the inflation.
      * @param savedInstanceState
-     *                              Bundle for the inflation.
+     *      Bundle for the inflation.
      * @return
-     *          the inflated view.
+     *      the inflated view.
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,13 +59,11 @@ public class AddChoresFragment extends Fragment {
         btnAddChore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (controller == null) {
-                    Log.d("TEST", "CONTROLLER ÄR NULL!");
-                } else if (!etChoreName.getText().toString().equals("")) {
+                if (!etChoreName.getText().toString().equals("")) {
                     controller.btnAddChoreClicked(etChoreName.getText().toString(), spinnerPoints.getSelectedItem().toString());
                     etChoreName.setText("");
                 } else {
-                  controller.toastShort(getResources().getString(R.string.nameInput));
+                    controller.toastShort(getResources().getString(R.string.nameInput));
                 }
             }
         });

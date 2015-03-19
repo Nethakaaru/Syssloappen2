@@ -29,38 +29,38 @@ public class DrawerAdapter extends ArrayAdapter<String> {
     /**
      * The getView method.
      * @param position
-     *                  The position of the view.
+     *      The position of the view.
      * @param convertView
-     *                  The view..
+     *      The view.
      * @param parent
-     *          The ViewGroup.
+     *      The ViewGroup.
      * @return
-     *          the view.
+     *      the view.
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
         //init viewHolder.
         ViewHolder holder = new ViewHolder();
-        if(convertView==null) {
+        if(convertView == null) {
             //inflate the layout.
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.draweritem, parent, false);
             holder.item = (TextView) convertView.findViewById(R.id.DrawerItem);
             convertView.setTag(holder);
 
-        }else{
-            holder=(ViewHolder) convertView.getTag();
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
 
         holder.item.setText(pages[position]);
         return convertView;
     }
 
-
     /**
      * A ViewHolder class containing a textView.
      */
     private static class ViewHolder {
-            TextView item;
+        TextView item;
     }
-    }
+
+}

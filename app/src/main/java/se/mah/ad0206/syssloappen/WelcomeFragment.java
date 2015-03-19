@@ -15,7 +15,7 @@ import android.widget.Button;
  */
 public class WelcomeFragment extends Fragment {
 
-   private Controller controller;
+    private Controller controller;
 
     public WelcomeFragment() {
         // Required empty public constructor
@@ -53,8 +53,8 @@ public class WelcomeFragment extends Fragment {
      * @param controller
      *                   A normal controller reference.
      */
-    public void setController(Controller controller){
-     this.controller=controller;
+    public void setController(Controller controller) {
+        this.controller = controller;
     }
 
 }

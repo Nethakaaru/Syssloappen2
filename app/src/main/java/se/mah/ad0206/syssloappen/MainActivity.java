@@ -21,6 +21,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
 
+/**
+ * The main activity.
+ * Starts the controller-class and handles the communication with the bluetooth-adapter.
+ * @author Sebastian Aspegren, Jonas Dahlström.
+ */
 public class MainActivity extends ActionBarActivity {
 
     private Controller controller;
@@ -36,7 +41,7 @@ public class MainActivity extends ActionBarActivity {
     /**
      * The main activity's onCreate method. It starts the controller and the drawer menu.
      * @param savedInstanceState
-     *                          I have no idea what this does.
+     *      The bundle used.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +82,9 @@ public class MainActivity extends ActionBarActivity {
         });
     }
 
+    /**
+     * onDestroy method that stops the bluetooth-communication when the app is closed.
+     */
     @Override
     protected void onDestroy() {
         stop();
@@ -96,7 +104,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     /**
-     * If the user clicks the back button...
+     * If the user clicks the back button.
      */
     @Override
     public void onBackPressed() {
@@ -120,21 +128,40 @@ public class MainActivity extends ActionBarActivity {
                 .show();
     }
 
+    /**
+     * Method that checks if the unit has bluetooth-support.
+     * @return
+     *      True or false.
+     */
     private boolean hasBluetoothSupport()	{
         mBluetoothAdapter =	BluetoothAdapter.getDefaultAdapter();
         return (mBluetoothAdapter != null);
     }
 
-    private void ensureBluetoothEnabled()	{
+    /**
+     * Method that checks if bluetooth is enabled. If it's not, it will ask the user to activate it.
+     */
+    private void ensureBluetoothEnabled() {
         if (!mBluetoothAdapter.isEnabled())	{
+            //Bluetooth is not activated. Ask the user to activate it and start intent.
             Intent enableBtIntent =	new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         } else {
-            //	Bluetooth	är	redan	aktiverat,	genomför	uppkoppling
+            //Bluetooth is already activated, start communication
             connectToBluetoothDevice(mac);
         }
     }
 
+    /**
+     * If bluetooth wasn't enabled the intent will be sent here with the result of the users choice.
+     * If it's activated now it will start the communication.
+     * @param requestCode
+     *      The requestCode.
+     * @param resultCode
+     *      The resultCode.
+     * @param data
+     *      The intent.
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent	data) {
         if (requestCode	== REQUEST_ENABLE_BT) {
@@ -144,6 +171,11 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+    /**
+     * Method that start the thread that connects to the bluetooth-device.
+     * @param mac
+     *      The MAC-address to the bluetooth-device.
+     */
     private void connectToBluetoothDevice(String mac) {
         if (BluetoothAdapter.checkBluetoothAddress(mac)) {
             BluetoothDevice mBluetoothDevice = mBluetoothAdapter.getRemoteDevice(mac);
@@ -152,6 +184,9 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+    /**
+     * Inner class that starts the connection to the bluetooth-device. Extends Thread.
+     */
     private class ConnectThread	extends Thread {
         private final BluetoothSocket mmSocket;
 
@@ -159,14 +194,15 @@ public class MainActivity extends ActionBarActivity {
             BluetoothSocket tmp	= null;
             try {
                 tmp	= device.createRfcommSocketToServiceRecord(SPP_UUID);
-            }	catch (IOException ignored) {
+            } catch (IOException ignored) {
             }
             mmSocket = tmp;
         }
-        public void run()	{
+
+        public void run() {
             try {
                 mmSocket.connect();
-            }	catch (IOException connectException) {
+            } catch (IOException connectException) {
                 try {
                     mmSocket.close();
                 } catch (IOException ignored) {
@@ -174,11 +210,13 @@ public class MainActivity extends ActionBarActivity {
                 return;
             }
 
+            //Start the ConnectedThread.
             connectedThread = new ConnectedThread(mmSocket);
             connectedThread.start();
 
         }
-        public void cancel()	{
+
+        public void cancel() {
             try {
                 mmSocket.close();
             } catch (IOException ignored) {
@@ -186,36 +224,21 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+    /**
+     * Inner class that handles the messages sent to the bluetooth-device. Extends Thread.
+     */
     private class ConnectedThread extends Thread {
         private final BluetoothSocket mmSocket;
-        private final InputStream mmInStream;
         private final OutputStream mmOutStream;
 
         public ConnectedThread(BluetoothSocket socket) {
             mmSocket = socket;
-            InputStream tmpIn =	null;
             OutputStream tmpOut	= null;
             try {
-                tmpIn =	socket.getInputStream();
                 tmpOut = socket.getOutputStream();
             } catch (IOException ignored)	{
             }
-            mmInStream = tmpIn;
             mmOutStream = tmpOut;
-        }
-
-        public void run() {
-            byte[] buffer =	new byte[1024];
-            int bytes;
-            while (true) {
-                try {
-                    bytes =	mmInStream.read(buffer);
-                    if(	bytes >	0)
-                        Log.i("DA119A", "Got value " + buffer[0]);
-                } catch (IOException e)	{
-                    break;
-                }
-            }
         }
 
         public void write(byte[] bytes)	{
@@ -233,6 +256,9 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+    /**
+     * Method that stops the threads and sets them to null.
+     */
     private synchronized void stop() {
         if (connectThread != null) {
             connectThread.cancel();
@@ -244,6 +270,12 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+    /**
+     * Method that sends a message to the bluetooth-device when the user level up.
+     * If the communication isn't working, it will save the reward until next time the user login.
+     * @param message
+     *      The message to send to the bluetooth-device.
+     */
     public void sendMessage(byte[] message) {
         if(connectedThread != null) {
             connectedThread.write(message);

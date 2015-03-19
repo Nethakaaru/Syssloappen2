@@ -111,7 +111,7 @@ public class MainFragment extends Fragment {
      *              users current points.
      */
     public void setTVPoints(String text) {
-       TVPoints.setText(getResources().getString(R.string.points) + " " + text + "/500");
+        TVPoints.setText(getResources().getString(R.string.points) + " " + text + "/500");
     }
 
     /**
@@ -123,7 +123,13 @@ public class MainFragment extends Fragment {
         TVLevel.setText(getResources().getString(R.string.level) + " " + text);
     }
 
+    /**
+     * Set the current users name.
+     * @param user
+     *      The username.
+     */
     public void setTVUser(String user) {
         TVUser.setText(user);
     }
+
 }

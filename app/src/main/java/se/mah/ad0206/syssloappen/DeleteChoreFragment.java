@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 /**
  * A fragment that lets you delete active chores so they are no longer displayed on the main page.
+ * @author Sebastian Aspegren, Jonas Dahlström.
  */
 public class DeleteChoreFragment extends Fragment {
 
@@ -38,7 +39,7 @@ public class DeleteChoreFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_delete_chore, container, false);
-        //find lind.
+        //find list.
         ListView lvDeleteChores = (ListView) view.findViewById(R.id.lvDeleteChores);
         lvDeleteChores.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

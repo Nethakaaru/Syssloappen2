@@ -13,7 +13,8 @@ import android.widget.TextView;
 
 
 /**
- * A fragment to view what chores the user has previously completed.
+ * A fragment used to show the chore history.
+ * @author Sebastian Aspegren, Jonas Dahlström.
  */
 public class HistoryFragment extends Fragment {
 
@@ -70,6 +71,11 @@ public class HistoryFragment extends Fragment {
         this.adapter = adapter;
     }
 
+    /**
+     * A normal set controller method.
+     * @param controller
+     *                  a reference to the controller.
+     */
     public void setController(Controller controller) {
         this.controller = controller;
     }
@@ -80,4 +86,5 @@ public class HistoryFragment extends Fragment {
     public void setTvHistory(){
         tvHistory.setText(getResources().getString(R.string.tvHistory) + " " + lvHistory.getCount());
     }
+
 }
