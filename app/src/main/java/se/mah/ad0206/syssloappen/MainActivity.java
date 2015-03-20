@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,6 +17,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
 
@@ -46,12 +48,12 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        controller = new Controller(this);
-
         //Check if bluetooth is available and enabled
         if(hasBluetoothSupport()) {
             ensureBluetoothEnabled();
         }
+
+        controller = new Controller(this);
 
         //find components.
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -242,15 +244,16 @@ public class MainActivity extends ActionBarActivity {
         public void write(byte[] bytes)	{
             try {
                 mmOutStream.write(bytes);
-            } catch (IOException ignored)	{
+            } catch (IOException ignored) {
+                controller.toastShort(getResources().getString(R.string.toastBTError));
+                controller.addMissedReward();
             }
         }
 
         public void cancel() {
             try {
                 mmSocket.close();
-            } catch (IOException ignored)	{
-            }
+            } catch (IOException ignored) {}
         }
     }
 
